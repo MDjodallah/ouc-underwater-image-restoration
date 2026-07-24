@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+ouc_env/
+venv/
+env/
+.env
+
+# Data and Models (DO NOT COMMIT MASSIVE DATASETS TO GITHUB)
+raw/
+ref/
+*.pth
+*.pt
+*.onnx
+
+# Configuration (Keep personal paths out of git)
+config.py
+
+# Mac OS
+.DS_Store
