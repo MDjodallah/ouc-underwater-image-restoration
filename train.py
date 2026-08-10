@@ -1,71 +1,114 @@
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, random_split
+from torchvision.utils import save_image
+
 from dataset import Underwaterdataset
 from model import Unet
-from torchvision.utils import save_image 
+from metrics import calculate_psnr 
+from config import (CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE, 
+                    LEARNING_RATE, EPOCHS, VAL_SPLIT, DEVICE, MEAN, STD)
 
-# 1. Configuration (C'est ici qu'on mettra notre config.py plus tard)
-BATCH_SIZE = 8
-LEARNING_RATE = 1e-4
-EPOCHS = 100
+def train():
 
-# 2. Préparation du terrain (MISE À JOUR POUR LE MAC M4 !)
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-elif torch.backends.mps.is_available():
-    device = torch.device('mps') # <-- C'est ici qu'on active le GPU de ton Mac M4 !
-else:
-    device = torch.device('cpu')
-dataset = Underwaterdataset("raw/", "ref/")
-train_loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
+    # 1. Chargement des données globales
+    full_dataset = Underwaterdataset(CHEMIN_RAW, CHEMIN_REF)
+    
+    # --- LE SPLIT DYNAMIQUE (LA SÉPARATION TRAIN / VAL) ---
+    total_size = len(full_dataset)
+    # On calcule dynamiquement la taille de l'examen (ex: 10% de 890 = 89 images)
+    val_size = int(total_size * VAL_SPLIT)
+    train_size = total_size - val_size 
+    
+    # Fixation du seed pour assurer la reproductibilité du split
+    generator = torch.Generator().manual_seed(42)
+    train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size], generator=generator)
+    
+    # On crée deux chargeurs différents
+    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-# 3. Initialisation des ingrédients
-model = Unet().to(device)
-criterion = nn.L1Loss()
-optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    print(f"Répartition du Dataset : Train={len(train_dataset)}, Val={len(val_dataset)}")
+    # ----------------------------------------------
 
-print(f"🚀 Entraînement lancé sur {device}...")
+    # 2. Modèle, Loss et Optimiseur
+    model = Unet().to(DEVICE)
+    chemin_modele = "unet_underwater_model.pth"
+    if os.path.exists(chemin_modele):
+        print(f"Chargement des poids existants depuis {chemin_modele}...")
+        model.load_state_dict(torch.load(chemin_modele, weights_only=True, map_location=DEVICE))
+    else:
+        print("Initialisation des poids du modèle.")
 
-for _ in range(EPOCHS):
-    for batch_idx, (input_images, target_images) in enumerate(train_loader):
-        # Déplacement des données sur le bon device
-        input_images = input_images.to(device)
-        target_images = target_images.to(device)
+    criterion = nn.L1Loss()
+    optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    
+    # 3. Boucle principale (Les Époques)
+    for epoch in range(EPOCHS):
+        # ==========================================
+        # PHASE 1 : ENTRAÎNEMENT
+        # Le modèle tente de restaurer l'image, on calcule son erreur (L1 Loss), 
+        # et on ajuste ses poids (Backpropagation) pour qu'il s'améliore au tour suivant.
+        # ==========================================
+        model.train() 
+        train_loss = 0.0
+        
+        for batch_idx, (raw_images, ref_images) in enumerate(train_loader):
+            raw_images, ref_images = raw_images.to(DEVICE), ref_images.to(DEVICE)
+            
+            optimizer.zero_grad()
+            outputs = model(raw_images)
+            loss = criterion(outputs, ref_images)
+            loss.backward()
+            optimizer.step()
+            
+            train_loss += loss.item()
+            
+            # Sauvegarde de la toute première image de l'époque
+            if batch_idx == 0:
+                os.makedirs("test", exist_ok=True)
+                mean_tensor = torch.tensor(MEAN).view(1, 3, 1, 1).to(DEVICE)
+                std_tensor = torch.tensor(STD).view(1, 3, 1, 1).to(DEVICE)
+                
+                raw_denorm = (raw_images * std_tensor) + mean_tensor
+                outputs_denorm = (outputs * std_tensor) + mean_tensor
+                ref_denorm = (ref_images * std_tensor) + mean_tensor
+                
+                comparaison = torch.cat((raw_denorm[:1], outputs_denorm[:1], ref_denorm[:1]), dim=3)
+                save_image(comparaison, f"test/comparaison_epoque_{epoch+1}.png")
+        
+        avg_train_loss = train_loss / len(train_loader)
+        
+        # ==========================================
+        # PHASE 2 : VALIDATION
+        # On fige les poids du modèle (pas d'apprentissage). On lui fait passer l'examen sur 
+        # nos images mises de côté pour vérifier qu'il généralise bien et ne fait pas de surapprentissage.
+        # ==========================================
+        model.eval() 
+        val_loss = 0.0
+        val_psnr = 0.0
+        
+        with torch.no_grad(): 
+            for val_raw, val_ref in val_loader:
+                val_raw, val_ref = val_raw.to(DEVICE), val_ref.to(DEVICE)
+                
+                val_outputs = model(val_raw)
+                val_loss += criterion(val_outputs, val_ref).item()
+                
+                # Calcul de la métrique PSNR sur le batch de validation
+                val_psnr += calculate_psnr(val_outputs, val_ref).item()
+                
+        # Moyenne du PSNR sur l'ensemble de validation
+        avg_val_loss = val_loss / len(val_loader)
+        avg_val_psnr = val_psnr / len(val_loader)
+        
+        # Bilan de fin d'époque
+        print(f"Epoch [{epoch+1}/{EPOCHS}] | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f} | Val PSNR: {avg_val_psnr:.2f} dB")
+                
+        # Sauvegarde de sécurité
+        torch.save(model.state_dict(), chemin_modele)
 
-        # Étape 1 : On efface les gradients du pas précédent
-        optimizer.zero_grad()
-
-        # Étape 2 : On fait passer les images d'entrée dans le modèle
-        output_images = model(input_images)
-
-        # Étape 3 : On calcule la perte entre la sortie et la cible
-        loss = criterion(output_images, target_images)
-
-        # Étape 4 : On calcule les gradients
-        loss.backward()
-
-        # Étape 5 : On met à jour les poids du modèle
-        optimizer.step()
-
-        if batch_idx % 10 == 0:
-            print(f"Epoch [{_+1}/{EPOCHS}], Batch [{batch_idx}/{len(train_loader)}], Loss: {loss.item():.4f}")
-
-    # --- OBSERVABILITÉ (Voir, c'est croire !) ---
-    # On sauvegarde l'image générée à la fin de chaque époque pour voir l'évolution
-    if _ % 10 == 0:  # On ne sauvegarde pas à chaque époque pour ne pas saturer le disque
-        save_image(output_images, f"test/prediction_epoque_{_+1}.png")
-### Ton travail pour la suite
-# Maintenant, il manque **la boucle d'entraînement**. C'est le cœur battant du programme. En PyTorch, une boucle d'entraînement suit toujours ce rituel sacré (le "Train Step") :
-
-# 1.  **`optimizer.zero_grad()`** : On efface les traces du calcul précédent (sinon ça s'accumule et ça bug).
-# 2.  **`output = model(input)`** : Le modèle prédit une image.
-# 3.  **`loss = criterion(output, target)`** : Le juge compare la prédiction avec la réalité.
-# 4.  **`loss.backward()`** : C'est la magie ! PyTorch calcule automatiquement de combien chaque poids du réseau doit changer pour réduire l'erreur.
-# 5.  **`optimizer.step()`** : Le coach applique les changements aux poids.
-
-# **Ton défi :** 
-# Essaye d'écrire une boucle `for` qui parcourt tes `epochs` (ex: 10 tours) et à l'intérieur, une boucle `for` qui parcourt ton `train_loader`. 
-
-# Auras-tu besoin d'aide pour imbriquer les deux boucles `for`, ou est-ce que tu te sens de tenter l'écriture de cette boucle ? (Indice : une boucle pour les époques, une boucle pour les batchs).
+if __name__ == "__main__":
+    train()
