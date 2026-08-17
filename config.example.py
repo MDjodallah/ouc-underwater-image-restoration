@@ -1,7 +1,7 @@
 import torch
 
 # --- DATA PATHS ---
-# ⚠️ REPLACE THESE PATHS WITH YOUR LOCAL DIRECTORIES BEFORE RUNNING
+# REPLACE THESE PATHS WITH YOUR LOCAL DIRECTORIES BEFORE RUNNING
 # Do NOT commit your local absolute paths to GitHub!
 CHEMIN_RAW = "path/to/your/raw/images"
 CHEMIN_REF = "path/to/your/reference/images"

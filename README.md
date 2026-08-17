@@ -1,27 +1,29 @@
-# Underwater Image Restoration — OUC Research Internship
+# Underwater Image Restoration — OUC Internship Project
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep_Learning-EE4C2C?logo=pytorch&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-In_Progress-orange)
 
-A deep learning research project conducted at the **Ocean University of China (OUC, 985 institution)** as part of a research internship. The goal is to restore degraded underwater images using a custom **U-Net convolutional neural network**, trained on paired raw/reference image datasets captured in real aquatic conditions.
+This repository contains the code for my 4th-year research internship project at the **Ocean University of China (OUC)**. 
+The goal of this project is to restore underwater images using Deep Learning. I built and trained a custom **U-Net convolutional neural network** to correct the colors and remove the blur caused by water.
 
 ---
 
-## 🔬 Research Context
+## The Problem
 
-Underwater images suffer from severe degradation caused by light absorption and scattering in water. The **red channel** is the most affected, resulting in characteristic color casts (green/blue dominance), reduced contrast, and blurriness. Restoring these images is a prerequisite for any downstream marine computer vision task (e.g., object detection, species classification, habitat mapping).
+When you take photos underwater, the water absorbs light (especially red colors) and scatters it. This makes the images look green/blue, blurry, and low contrast. 
+If we want to use AI to detect fish or map the ocean floor, we first need to restore the true colors of these images.
 
-This project is positioned at the intersection of **image-to-image translation** and **low-level computer vision**, drawing from the latest literature in the field (see [`references.md`](./references.md)).
+This project uses image-to-image translation techniques to mathematically reverse these physical distortions.
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
-The restoration model is a **U-Net**, an encoder-decoder architecture with skip connections, chosen for its ability to preserve spatial detail while learning high-level degradation patterns.
+I chose a **U-Net** architecture. It is an encoder-decoder model with skip connections, which is excellent at keeping the shape of objects (like corals or fish) intact while we change the colors.
 
 ```
-Input (degraded)       Output (restored)
+Input (blurry)             Output (clear)
 [3, 256, 256]    →  U-Net  →  [3, 256, 256]
 
 Encoder (Downsampling)       Decoder (Upsampling)
@@ -32,102 +34,109 @@ Encoder (Downsampling)       Decoder (Upsampling)
                                Final Conv → 3ch (RGB)
 ```
 
-Each `DoubleConv` block: `Conv2d → BatchNorm → ReLU → Conv2d → BatchNorm → ReLU`
-
-Skip connections concatenate encoder feature maps with the corresponding decoder stage, allowing the model to recover fine-grained details lost during downsampling.
+The skip connections pass the detailed outlines directly from the encoder to the decoder, preventing the image from becoming too blurry during the process.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 .
-├── model.py           # U-Net architecture definition (PyTorch)
-├── dataset.py         # Custom Dataset class (paired raw/ref loading + normalization)
-├── train.py           # Training loop (Adam optimizer, L1 loss, MPS/CUDA/CPU support)
-├── utils.py           # Dataset statistics computation (mean/std per channel)
-├── config.example.py  # Configuration template (paths, hyperparameters, normalization stats)
-├── config.py          # Local configuration (gitignored — contains absolute paths)
-├── references.md      # State-of-the-art literature reviewed for this project
-├── raw/               # Input: degraded underwater images (gitignored)
-└── ref/               # Target: reference/clean underwater images (gitignored)
+├── model.py           # The PyTorch U-Net code
+├── dataset.py         # Code to load and prepare the images
+├── train.py           # The training loop (loss, optimizer, etc.)
+├── utils.py           # Helper scripts (like calculating mean/std)
+├── config.example.py  # Template for your local paths
+├── config.py          # Your actual config file (gitignored)
+├── references.md      # Scientific papers I read for this project
+├── raw/               # The blurry input images (gitignored)
+└── ref/               # The clean reference images (gitignored)
 ```
 
-> **Note:** Raw image data is gitignored to avoid committing large binary files. The dataset must be placed locally according to `config.example.py`.
+Note: The actual dataset images are not uploaded to GitHub because they are too heavy.
 
 ---
 
-## 🚀 Getting Started
+## Evaluation & Analysis
 
-### 1. Clone and set up the environment
+## 1. Les Résultats Obtenus
+Après avoir entraîné notre modèle **U-Net V2 (avec les blocs d'attention)** sur notre dataset, voici les scores que nous avons mesurés :
+- **PSNR (Netteté et Couleurs)** : 12.51 dB
+- **SSIM (Formes et Géométrie)** : 0.93
+
+Ces résultats sont intéressants : le SSIM est excellent, mais le PSNR reste assez bas par rapport aux standards habituels. Voici pourquoi.
+
+## 2. Le SSIM (0.93) : De très bonnes formes
+Le score SSIM compare la structure globale de l'image. 
+Un score de **0.93** prouve que le modèle fait un travail remarquable pour conserver les formes (les contours des poissons, le relief des rochers, etc.). Grâce à l'Attention Spatiale que nous avons ajoutée dans la V2, le réseau comprend ce qui est important dans l'image et ne déforme pas les objets.
+
+## 3. Le PSNR (12.51 dB) : Le problème des couleurs
+Le PSNR mesure l'écart exact de couleur pixel par pixel entre notre résultat et l'image parfaite. 
+Sous l'eau, il manque énormément de lumière rouge. Notre modèle a du mal à deviner et recréer les couleurs exactes, ce qui fait chuter le score PSNR, pour deux raisons :
+
+1. **La fonction d'erreur (Loss) :** Si le modèle génère une image très nette mais avec un bleu légèrement différent de la réalité, le calcul mathématique du PSNR va fortement pénaliser le modèle, même si l'image nous paraît très belle à l'œil nu.
+2. **Le manque de données :** Notre dataset actuel est trop petit. Le modèle n'a pas vu assez d'exemples de fonds marins différents pour apprendre à corriger parfaitement les couleurs dans toutes les situations.
+
+## 4. Le problème de la "grille" (Effet Damier)
+En zoomant sur certaines images générées, on remarque parfois un léger motif de grille (le "Checkerboard Artifact"). 
+C'est un problème classique lié aux couches de "Déconvolution" utilisées pour agrandir l'image dans le réseau. Quand les pixels se chevauchent mal lors du calcul, cela crée cette grille invisible qui fait aussi baisser notre score PSNR.
+
+## 5. Conclusion et passage à la Phase 3
+Ces scores prouvent que notre architecture U-Net V2 est très solide pour comprendre la géométrie sous-marine (bon SSIM), mais qu'elle a besoin d'aide pour les couleurs (faible PSNR).
+
+Pour régler l'effet de grille et booster les couleurs, nous devons passer à l'étape supérieure. C'est l'objectif de la **Phase 3 : l'entraînement massif**. Nous allons utiliser un nouveau dataset géant (EUVP) de plus de 11 000 images pour donner au modèle l'expérience qui lui manque.
+
+
+---
+
+## How to use it
+
+### 1. Installation
 
 ```bash
 git clone https://github.com/mdjodallah/ouc-underwater-image-restoration.git
 cd ouc-underwater-image-restoration
 
 python -m venv venv
-source venv/bin/activate       # Windows: venv\Scripts\activate
+source venv/bin/activate       # Windows: venv\Scriptsctivate
 pip install torch torchvision pillow
 ```
 
-### 2. Configure paths
+### 2. Configuration
 
-Copy the example config and fill in your local dataset paths:
+Copy the config template and add your own image folder paths:
 
 ```bash
 cp config.example.py config.py
 ```
 
 Edit `config.py`:
-
 ```python
-CHEMIN_RAW = "path/to/your/raw/images"   # Degraded underwater images
-CHEMIN_REF = "path/to/your/reference/images"  # Clean reference images
+CHEMIN_RAW = "path/to/your/raw/images"
+CHEMIN_REF = "path/to/your/reference/images"
 ```
 
-### 3. (Optional) Compute dataset statistics
+### 3. Training
 
-If using a new dataset, recompute the normalization statistics before training:
-
-```bash
-python utils.py
-```
-
-Update the `MEAN` and `STD` values in `config.py` with the output.
-
-### 4. Train the model
+Run the training script:
 
 ```bash
 python train.py
 ```
 
-Training runs for `EPOCHS` iterations (configurable in `config.py`). The script automatically selects the best available device:
-- Apple Silicon → **MPS**
-- NVIDIA GPU → **CUDA**
-- Fallback → **CPU**
+The script will automatically use your GPU if you have one (it supports Apple Silicon MPS and NVIDIA CUDA).
 
 ---
 
-## ⚙️ Key Design Choices
+## Technical Choices
 
-| Choice | Rationale |
-|---|---|
-| **U-Net** | Strong baseline for image-to-image translation; skip connections preserve spatial resolution |
-| **L1 Loss** | Pixel-wise MAE; more robust to outliers than MSE and avoids over-smoothed outputs |
-| **Channel normalization** | Per-channel mean/std computed on the raw dataset; accounts for the red-channel deficit typical of underwater imagery |
-| **256×256 resize** | Standardizes heterogeneous input sizes; balances detail vs. training speed |
-| **MPS support** | Enables native GPU acceleration on Apple Silicon during local development |
+- **U-Net**: Very stable and great at preserving image shapes.
+- **L1 Loss**: I used L1 (Mean Absolute Error) instead of MSE because it keeps the images sharper and avoids a "smudged" look.
+- **Normalization**: I normalize the images per color channel to help the AI handle the lack of red light underwater.
+- **256x256 resizing**: A good balance to train the model relatively fast without losing too much detail.
 
 ---
 
-## 📚 References
-
-See [`references.md`](./references.md) for a curated review of the state-of-the-art literature this project builds upon, including:
-- Survey of deep learning methods for underwater enhancement (Cong et al., 2024)
-- UniUIR all-in-one restoration framework (Zhang et al., 2025)
-- Semi-supervised contrastive learning for paired-data scarcity (Huang et al., 2023)
-
----
-
-**Research Internship** — Ocean University of China (OUC) · Qingdao, China · 2026  
-**Supervisor:** Ocean University of China, College of Computer Science and Technology
+**4th Year Internship** — Ocean University of China (OUC) · Qingdao, China · 2026  
+**Author:** Moutassim Djodalah annour
+**Supervisor:** Prof. Cao Jingchao
