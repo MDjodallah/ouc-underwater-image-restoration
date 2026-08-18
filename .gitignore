@@ -19,10 +19,10 @@ ref/
 
 # Exception : On a besoin du modèle final (34 Mo) pour le déploiement sur Render !
 !generator_final.pth
+!generator.onnx
 
 # Configuration (Keep personal paths out of git)
-config.py
-
+# (config.py is now tracked in core/config.py)
 # Mac OS
 .DS_Store
 

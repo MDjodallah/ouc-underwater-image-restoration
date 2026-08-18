@@ -1,7 +1,7 @@
 import torch
 from torch.utils.data import DataLoader
 # Import strict de la classe pour éviter l'exécution du bloc de test de dataset.py
-from dataset import Underwaterdataset
+from core.dataset import Underwaterdataset
 from tqdm import tqdm
 
 def calculate_mean_std(dataset, batch_size=32):
@@ -30,7 +30,7 @@ def calculate_mean_std(dataset, batch_size=32):
     return global_mean, global_std
 
 if __name__ == "__main__":
-    from config import CHEMIN_RAW, CHEMIN_REF
+    from core.config import CHEMIN_RAW, CHEMIN_REF
     import torchvision.transforms as transforms
     
     try:

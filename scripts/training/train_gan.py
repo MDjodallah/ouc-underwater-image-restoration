@@ -1,44 +1,49 @@
 import os
+import sys
+
+# Ensure the core module is accessible from the scripts directory
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision.utils import save_image
 
-from dataset import Underwaterdataset
-from model import Unet
-from discriminator import Discriminator
-from config import CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE, EPOCHS, DEVICE, MEAN, STD
+from core.dataset import Underwaterdataset
+from core.model import Unet
+from core.discriminator import Discriminator
+from core.config import CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE, EPOCHS, DEVICE, MEAN, STD
 
 def train_gan():
-    print(f"Initialisation du pipeline GAN sur {DEVICE}...")
+    print(f"[INFO] Initializing GAN pipeline on {DEVICE}...")
     
     dataset = Underwaterdataset(CHEMIN_RAW, CHEMIN_REF)
     train_loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
-    # 1. Initialisation des deux réseaux
+    # 1. Network Initialization
     generator = Unet().to(DEVICE)
     discriminator = Discriminator().to(DEVICE)
     
-    # --- MÉCANIQUE DE REPRISE (ANTI-COUPURE INTERNET) ---
+    # --- RESUME MECHANISM (FAULT TOLERANCE) ---
     if os.path.exists("generator_final.pth") and os.path.exists("discriminator_final.pth"):
-        print("Chargement des poids existants (Générateur et Discriminateur)...")
+        print("[INFO] Loading existing model weights (Generator and Discriminator)...")
         generator.load_state_dict(torch.load("generator_final.pth", map_location=DEVICE, weights_only=True))
         discriminator.load_state_dict(torch.load("discriminator_final.pth", map_location=DEVICE, weights_only=True))
     else:
-        print("Initialisation des poids du réseau.")
+        print("[INFO] Initializing network weights from scratch.")
     # ----------------------------------------------------
     
-    # 2. Fonctions de perte (Losses)
+    # 2. Loss Functions
     criterion_GAN = nn.MSELoss()
     criterion_pixelwise = nn.L1Loss()
-    lambda_pixel = 100 # On donne 100x plus d'importance aux vraies couleurs
+    lambda_pixel = 100 # Emphasize L1 loss for color accuracy
     
-    # 3. Optimiseurs
+    # 3. Optimizers
     optimizer_G = optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
     optimizer_D = optim.Adam(discriminator.parameters(), lr=0.0002, betas=(0.5, 0.999))
 
-    print("Début de la phase d'entraînement adversarial.")
+    print("[INFO] Starting adversarial training phase.")
     
     for epoch in range(EPOCHS):
         for batch_idx, (raw_images, ref_images) in enumerate(train_loader):
@@ -46,13 +51,13 @@ def train_gan():
             ref_images = ref_images.to(DEVICE)
 
             # ==========================================
-            # ENTRAÎNEMENT DU GÉNÉRATEUR
+            # GENERATOR TRAINING
             # ==========================================
             optimizer_G.zero_grad()
             gen_images = generator(raw_images)
             pred_fake = discriminator(gen_images)
             
-            # CRITIQUE : Création d'étiquettes de la taille exacte du PatchGAN (16x16)
+            # CRITICAL: Create target tensors matching PatchGAN output dimensions (e.g. 16x16)
             valid = torch.ones_like(pred_fake).to(DEVICE)
             fake = torch.zeros_like(pred_fake).to(DEVICE)
             
@@ -64,7 +69,7 @@ def train_gan():
             optimizer_G.step()
 
             # ==========================================
-            # ENTRAÎNEMENT DU DISCRIMINATEUR
+            # DISCRIMINATOR TRAINING
             # ==========================================
             optimizer_D.zero_grad()
             pred_real = discriminator(ref_images)
@@ -93,7 +98,7 @@ def train_gan():
                 comparaison = torch.cat((raw_denorm[:1], gen_denorm[:1], ref_denorm[:1]), dim=3)
                 save_image(comparaison, f"test_gan/gan_epoque_{epoch+1}.png")
 
-        # Sauvegarde des modèles
+        # Save intermediate weights
         torch.save(generator.state_dict(), "generator_final.pth")
         torch.save(discriminator.state_dict(), "discriminator_final.pth")
 

@@ -1,3 +1,6 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import torch
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
@@ -5,8 +8,8 @@ from PIL import Image
 import sys
 import os
 
-from model import Unet
-from config import DEVICE, MEAN, STD
+from core.model import Unet
+from core.config import DEVICE, MEAN, STD
 
 def corriger_image(chemin_image_floue, chemin_sauvegarde="image_corrigee.png"):
     print(f"Chargement du modèle sur {DEVICE}...")

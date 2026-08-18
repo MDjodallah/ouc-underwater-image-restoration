@@ -1,10 +1,13 @@
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import torch
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-from dataset import Underwaterdataset
-from model import Unet
-from config import DEVICE, MEAN, STD, CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE
-from metrics import calculate_psnr 
+from core.dataset import Underwaterdataset
+from core.model import Unet
+from core.config import DEVICE, MEAN, STD, CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE
+from core.metrics import calculate_psnr 
 import numpy as np
 from skimage.metrics import structural_similarity as ssim
 from tqdm import tqdm
@@ -53,7 +56,7 @@ def evaluate_model():
             # Prédiction de l'IA
             prediction = model(raw_img)
             
-            # Calcul du PSNR (en utilisant la fonction de ton metrics.py)
+            # Calculate Peak Signal-to-Noise Ratio (PSNR)
             current_psnr = calculate_psnr(prediction, ref_img).item()
             total_psnr += current_psnr
             

@@ -4,7 +4,7 @@ import torch
 from torch.utils.data import Dataset 
 from typing import Optional, Callable 
 import torchvision.transforms as transforms 
-from config import MEAN, STD, CHEMIN_RAW, CHEMIN_REF 
+from core.config import MEAN, STD, CHEMIN_RAW, CHEMIN_REF 
 
 class Underwaterdataset(Dataset):
     

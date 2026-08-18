@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,138 +45,360 @@
         }
     </script>
     <style>
-        body { transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
-        .dark body { background-color: #010A15; color: #ffffff; }
-        body { background-color: #f8fafc; color: #0f172a; }
+        body {
+            transition: background-color 0.7s cubic-bezier(0.4, 0, 0.2, 1), color 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        .water-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .dark body {
+            background-color: #010A15;
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        .water-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .dark .water-bg {
             background: radial-gradient(circle at 50% 0%, rgba(0, 87, 255, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 40%);
         }
+
         body:not(.dark) .water-bg {
             background: radial-gradient(circle at 50% 0%, rgba(0, 150, 255, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.05) 0%, transparent 40%);
         }
 
         .bubble {
-            position: fixed; bottom: -20px; border-radius: 50%; z-index: -1; animation: rise linear infinite; transition: all 0.7s ease;
+            position: fixed;
+            bottom: -20px;
+            border-radius: 50%;
+            z-index: -1;
+            animation: rise linear infinite;
+            transition: all 0.7s ease;
         }
+
         .dark .bubble {
             background: radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.8), rgba(0, 87, 255, 0.2));
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.6);
         }
+
         body:not(.dark) .bubble {
             background: radial-gradient(circle at 30% 30%, rgba(0, 150, 255, 0.6), rgba(0, 87, 255, 0.15));
             box-shadow: 0 0 10px rgba(0, 150, 255, 0.2), inset 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes rise {
-            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-            10% { opacity: 0.6; }
-            50% { transform: translateY(-50vh) translateX(20px) scale(1.2); }
-            90% { opacity: 0; }
-            100% { transform: translateY(-100vh) translateX(-20px) scale(1.5); opacity: 0; }
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateY(-50vh) translateX(20px) scale(1.2);
+            }
+
+            90% {
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(-20px) scale(1.5);
+                opacity: 0;
+            }
         }
 
-        
-        body:not(.dark) .glass { background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(255, 255, 255, 1); box-shadow: 0 20px 40px rgba(0, 50, 150, 0.03); }
-        nav.glass { border: none !important; }
 
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        body:not(.dark) .glass {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 20px 40px rgba(0, 50, 150, 0.03);
+        }
 
-        .drop-zone { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .dark .drop-zone { border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.4); }
-        body:not(.dark) .drop-zone { border-color: rgba(0,0,0,0.1); background: rgba(255,255,255,0.6); }
-        
-        .drop-zone:hover, .drop-zone.dragover { border-color: #00F0FF; box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1); }
-        .dark .drop-zone:hover, .dark .drop-zone.dragover { background: rgba(0, 240, 255, 0.05); }
-        body:not(.dark) .drop-zone:hover, body:not(.dark) .drop-zone.dragover { background: rgba(0, 240, 255, 0.02); }
+        nav.glass {
+            border: none !important;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .drop-zone {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .dark .drop-zone {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        body:not(.dark) .drop-zone {
+            border-color: rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: #00F0FF;
+            box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+
+        .dark .drop-zone:hover,
+        .dark .drop-zone.dragover {
+            background: rgba(0, 240, 255, 0.05);
+        }
+
+        body:not(.dark) .drop-zone:hover,
+        body:not(.dark) .drop-zone.dragover {
+            background: rgba(0, 240, 255, 0.02);
+        }
 
         .compare-wrapper {
-            position: relative; width: 100%; max-width: 800px; margin: 0 auto;
-            aspect-ratio: 4/3; overflow: hidden; border-radius: 1rem;
-            background: #e2e8f0; transition: border-color 0.7s;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #e2e8f0;
+            transition: border-color 0.7s;
         }
-        .dark .compare-wrapper { background: #000; border: 1px solid rgba(0, 240, 255, 0.2); }
-        body:not(.dark) .compare-wrapper { border: 1px solid rgba(0, 100, 255, 0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        
-        .compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; user-select: none; }
-        .compare-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); z-index: 2; }
-        .compare-slider { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: ew-resize; opacity: 0; z-index: 3; }
+
+        .dark .compare-wrapper {
+            background: #000;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        body:not(.dark) .compare-wrapper {
+            border: 1px solid rgba(0, 100, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .compare-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        .compare-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            z-index: 2;
+        }
+
+        .compare-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: ew-resize;
+            opacity: 0;
+            z-index: 3;
+        }
+
         .compare-handle {
-            position: absolute; top: 0; left: 50%; width: 2px; height: 100%;
-            background: #00F0FF; z-index: 2; pointer-events: none;
-            box-shadow: 0 0 15px #00F0FF; transform: translateX(-50%); transition: box-shadow 0.7s;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: #00F0FF;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: 0 0 15px #00F0FF;
+            transform: translateX(-50%);
+            transition: box-shadow 0.7s;
         }
+
         .compare-handle::after {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 40px; height: 40px; background: rgba(0, 240, 255, 0.2); backdrop-filter: blur(4px);
-            border: 2px solid #00F0FF; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 240, 255, 0.2);
+            backdrop-filter: blur(4px);
+            border: 2px solid #00F0FF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         .compare-handle::before {
-            content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: #000; font-weight: bold; font-size: 18px; z-index: 10;
+            content: '↔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 10;
         }
 
         .label-badge {
-            position: absolute; bottom: 1rem; padding: 0.5rem 1rem;
-            backdrop-filter: blur(8px); border-radius: 99px; font-size: 0.75rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.05em; z-index: 4; transition: opacity 0.3s, background 0.7s, color 0.7s, border 0.7s;
+            position: absolute;
+            bottom: 1rem;
+            padding: 0.5rem 1rem;
+            backdrop-filter: blur(8px);
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 4;
+            transition: opacity 0.3s, background 0.7s, color 0.7s, border 0.7s;
         }
-        .dark .label-badge { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
-        body:not(.dark) .label-badge { background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); color: #0f172a; }
-        .label-original { right: 1rem; }
-        .label-ia { left: 1rem; color: #0057FF; }
-        .dark .label-ia { color: #00F0FF; }
+
+        .dark .label-badge {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        body:not(.dark) .label-badge {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            color: #0f172a;
+        }
+
+        .label-original {
+            right: 1rem;
+        }
+
+        .label-ia {
+            left: 1rem;
+            color: #0057FF;
+        }
+
+        .dark .label-ia {
+            color: #00F0FF;
+        }
 
         .text-gradient {
             background: linear-gradient(135deg, #0057FF 0%, #00F0FF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 0.7s;
-        }
-        .dark .text-gradient {
-            background: linear-gradient(135deg, #fff 0%, #00F0FF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.7s;
         }
 
-        .hero-gradient-overlay { position: absolute; inset: 0; z-index: -1; transition: background 0.7s ease; }
-        .dark .hero-gradient-overlay { background: linear-gradient(to bottom, transparent, rgba(0,5,10,0.5), #00050A); }
-        body:not(.dark) .hero-gradient-overlay { background: linear-gradient(to bottom, transparent, rgba(248,250,252,0.8), #f8fafc); }
+        .dark .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #00F0FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-gradient-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            transition: background 0.7s ease;
+        }
+
+        .dark .hero-gradient-overlay {
+            background: linear-gradient(to bottom, transparent, rgba(0, 5, 10, 0.5), #00050A);
+        }
+
+        body:not(.dark) .hero-gradient-overlay {
+            background: linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.8), #f8fafc);
+        }
     </style>
 </head>
+
 <body class="transition-colors duration-700">
 
     <div class="water-bg"></div>
     <div id="bubbles-container"></div>
 
     <!-- Nav -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#031930] backdrop-blur-xl py-4 px-8 flex justify-between items-center transition-all duration-700" id="navbar">
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-[#031930] backdrop-blur-xl py-4 px-8 flex justify-between items-center transition-all duration-700"
+        id="navbar">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                        d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                    </path>
+                </svg>
             </div>
-            <span class="text-2xl font-extrabold tracking-tight text-slate-800 dark:text-white transition-colors duration-700">DeepLens</span>
+            <span
+                class="text-2xl font-extrabold tracking-tight text-slate-800 dark:text-white transition-colors duration-700">DeepLens</span>
         </div>
         <div class="flex items-center gap-4 md:gap-6">
-            <div class="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-slate-600 dark:text-gray-200 transition-colors duration-700">
-                <a href="#mission" class="hover:text-secondary dark:hover:text-primary transition-colors" data-i18n="nav_mission">Le Défi Marin</a>
-                <a href="#demo" class="hover:text-secondary dark:hover:text-white text-slate-900 dark:text-white transition-colors" data-i18n="nav_demo">Démo Interactive</a>
-                <a href="#backstage" class="hover:text-secondary dark:hover:text-primary transition-colors" data-i18n="nav_backstage">Les Coulisses</a>
-                <a href="#timeline" class="hover:text-secondary dark:hover:text-primary transition-colors" data-i18n="nav_timeline">Roadmap</a>
-                <a href="#tech-stack" class="hover:text-secondary dark:hover:text-primary transition-colors" data-i18n="nav_stack">Tech Stack</a>
+            <div
+                class="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-slate-600 dark:text-gray-200 transition-colors duration-700">
+                <a href="#mission" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_mission">Le Défi Marin</a>
+                <a href="#demo"
+                    class="hover:text-secondary dark:hover:text-white text-slate-900 dark:text-white transition-colors"
+                    data-i18n="nav_demo">Démo Interactive</a>
+                <a href="#backstage" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_backstage">Les Coulisses</a>
+                <a href="#timeline" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_timeline">Roadmap</a>
+                <a href="#tech-stack" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_stack">Tech Stack</a>
             </div>
-            
+
             <div class="flex items-center gap-2 pl-4 md:pl-6 ml-2 md:ml-0 transition-colors duration-700">
                 <!-- Language Toggle -->
-                <button id="langToggle" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-all duration-300 uppercase tracking-widest shadow-sm">
+                <button id="langToggle"
+                    class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold hover:bg-slate-300 dark:hover:bg-white/20 transition-all duration-300 uppercase tracking-widest shadow-sm">
                     EN
                 </button>
-                
+
                 <!-- Dark Mode Toggle -->
-                <button id="themeToggle" class="p-2 rounded-full bg-transparent hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300">
-                    <svg id="sunIcon" class="w-5 h-5 text-slate-700 hidden dark:block dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <svg id="moonIcon" class="w-5 h-5 text-slate-700 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <button id="themeToggle"
+                    class="p-2 rounded-full bg-transparent hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300">
+                    <svg id="sunIcon" class="w-5 h-5 text-slate-700 hidden dark:block dark:text-yellow-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z">
+                        </path>
+                    </svg>
+                    <svg id="moonIcon" class="w-5 h-5 text-slate-700 block dark:hidden" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -184,30 +407,44 @@
     <!-- Hero Section -->
     <header class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
         <div class="hero-gradient-overlay"></div>
-        
+
         <div class="reveal active flex flex-col items-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-[#031930] backdrop-blur-xl text-xs font-bold uppercase tracking-widest text-secondary dark:text-primary mb-8 animate-float transition-all duration-700">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-[#031930] backdrop-blur-xl text-xs font-bold uppercase tracking-widest text-secondary dark:text-primary mb-8 animate-float transition-all duration-700">
                 <span class="w-2 h-2 rounded-full bg-secondary dark:bg-primary animate-pulse"></span>
                 <span data-i18n="hero_badge">Recherche & Restauration IA</span>
             </div>
-            <h1 class="text-4xl md:text-5xl lg:text-7xl font-black mb-6 leading-tight tracking-tighter text-slate-900 dark:text-white transition-colors duration-700">
+            <h1
+                class="text-4xl md:text-5xl lg:text-7xl font-black mb-6 leading-tight tracking-tighter text-slate-900 dark:text-white transition-colors duration-700">
                 Deep Learning-Based <br />
                 <span class="text-gradient">Underwater Image Enhancement</span>
             </h1>
-            <p class="text-lg md:text-xl text-slate-900 dark:text-white max-w-3xl mx-auto font-bold leading-relaxed mb-12 transition-colors duration-700" data-i18n="hero_desc">
+            <p class="text-lg md:text-xl text-slate-900 dark:text-white max-w-3xl mx-auto font-bold leading-relaxed mb-12 transition-colors duration-700"
+                data-i18n="hero_desc">
                 Stage de 4ème année (Projet de Recherche) - Ocean University of China (OUC)<br />
-                <strong>Réalisé par :</strong> Moutassim Djodalah annour | <strong>Supervisé par :</strong> Prof. Cao Jingchao
+                <strong>Réalisé par :</strong> Moutassim Djodalah annour | <strong>Supervisé par :</strong> Prof. Cao
+                Jingchao
             </p>
-            <a href="#demo" class="group relative px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-deep font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 shadow-xl">
-                <div class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <span class="relative z-10 group-hover:text-white transition-colors duration-300" data-i18n="hero_btn">Traiter une image</span>
+            <a href="#demo"
+                class="group relative px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-deep font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 shadow-xl">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                </div>
+                <span class="relative z-10 group-hover:text-white transition-colors duration-300"
+                    data-i18n="hero_btn">Traiter une image</span>
             </a>
         </div>
-        
-        <a href="#mission" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-            <span class="text-xs text-slate-900 dark:text-white uppercase tracking-widest transition-colors duration-700 font-bold" data-i18n="hero_scroll">Découvrir</span>
-            <div class="w-6 h-10 border-2 border-slate-700 dark:border-white rounded-full flex justify-center pt-2 transition-colors duration-700">
-                <div class="w-1 h-2 bg-slate-800 dark:bg-white rounded-full animate-wheel transition-colors duration-700"></div>
+
+        <a href="#mission"
+            class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+            <span
+                class="text-xs text-slate-900 dark:text-white uppercase tracking-widest transition-colors duration-700 font-bold"
+                data-i18n="hero_scroll">Découvrir</span>
+            <div
+                class="w-6 h-10 border-2 border-slate-700 dark:border-white rounded-full flex justify-center pt-2 transition-colors duration-700">
+                <div
+                    class="w-1 h-2 bg-slate-800 dark:bg-white rounded-full animate-wheel transition-colors duration-700">
+                </div>
             </div>
         </a>
     </header>
@@ -217,37 +454,66 @@
         <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
-                    <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700" data-i18n="mission_subtitle">Le Défi Physique (Introduction)</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="mission_title">Pourquoi restaurer les images sous-marines ?</h3>
-                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed mb-6 transition-colors duration-700" data-i18n="mission_p1">
-                        L'exploration océanique se heurte à des lois physiques strictes. Sous l'eau, la lumière subit deux phénomènes majeurs : l'absorption (qui fait disparaître les longueurs d'onde rouges en premier, donnant un ton vert/bleu aux images) et la diffusion spatiale (qui crée un voile laiteux et réduit le contraste).
+                    <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                        data-i18n="mission_subtitle">Le Défi Physique (Introduction)</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                        data-i18n="mission_title">Pourquoi restaurer les images sous-marines ?</h3>
+                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed mb-6 transition-colors duration-700"
+                        data-i18n="mission_p1">
+                        L'exploration océanique se heurte à des lois physiques strictes. Sous l'eau, la lumière subit
+                        deux phénomènes majeurs : l'absorption (qui fait disparaître les longueurs d'onde rouges en
+                        premier, donnant un ton vert/bleu aux images) et la diffusion spatiale (qui crée un voile
+                        laiteux et réduit le contraste).
                     </p>
-                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed transition-colors duration-700" data-i18n="mission_p2">
-                        L'objectif de ce projet de recherche est d'utiliser l'Intelligence Artificielle (Deep Learning) pour inverser mathématiquement ces distorsions physiques et restaurer les vraies couleurs des fonds marins en temps réel.
+                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed transition-colors duration-700"
+                        data-i18n="mission_p2">
+                        L'objectif de ce projet de recherche est d'utiliser l'Intelligence Artificielle (Deep Learning)
+                        pour inverser mathématiquement ces distorsions physiques et restaurer les vraies couleurs des
+                        fonds marins en temps réel.
                     </p>
                 </div>
-                <div class="reveal bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-8 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10">
-                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+                <div
+                    class="reveal bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-8 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none">
+                    </div>
                     <div class="flex flex-col gap-8 relative z-10">
                         <div class="flex items-center gap-6">
-                            <div class="w-14 h-14 shrink-0 rounded-full bg-red-100 dark:bg-red-500/20 border border-red-200 dark:border-red-500/40 flex items-center justify-center shadow-sm transition-colors duration-700"><span class="text-red-600 dark:text-red-400 font-bold transition-colors duration-700">-5m</span></div>
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-red-100 dark:bg-red-500/20 border border-red-200 dark:border-red-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-red-600 dark:text-red-400 font-bold transition-colors duration-700">-5m</span>
+                            </div>
                             <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700" data-i18n="depth_5_title">Perte des Rouges</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700" data-i18n="depth_5_desc">Disparition totale du spectre rouge.</p>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_5_title">Perte des Rouges</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_5_desc">Disparition totale du spectre rouge.</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-6">
-                            <div class="w-14 h-14 shrink-0 rounded-full bg-orange-100 dark:bg-orange-500/20 border border-orange-200 dark:border-orange-500/40 flex items-center justify-center shadow-sm transition-colors duration-700"><span class="text-orange-600 dark:text-orange-400 font-bold transition-colors duration-700">-15m</span></div>
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-orange-100 dark:bg-orange-500/20 border border-orange-200 dark:border-orange-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-orange-600 dark:text-orange-400 font-bold transition-colors duration-700">-15m</span>
+                            </div>
                             <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700" data-i18n="depth_15_title">Perte des Oranges/Jaunes</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700" data-i18n="depth_15_desc">Les teintes chaudes s'effacent complètement.</p>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_15_title">Perte des Oranges/Jaunes</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_15_desc">Les teintes chaudes s'effacent complètement.</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-6">
-                            <div class="w-14 h-14 shrink-0 rounded-full bg-blue-100 dark:bg-blue-500/20 border border-blue-200 dark:border-blue-500/40 flex items-center justify-center shadow-sm transition-colors duration-700"><span class="text-blue-600 dark:text-blue-400 font-bold transition-colors duration-700">-30m+</span></div>
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-blue-100 dark:bg-blue-500/20 border border-blue-200 dark:border-blue-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-blue-600 dark:text-blue-400 font-bold transition-colors duration-700">-30m+</span>
+                            </div>
                             <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700" data-i18n="depth_30_title">Domination Bleue</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700" data-i18n="depth_30_desc">Le paysage marin devient monochromatique.</p>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_30_title">Domination Bleue</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_30_desc">Le paysage marin devient monochromatique.</p>
                             </div>
                         </div>
                     </div>
@@ -260,23 +526,37 @@
     <section id="demo" class="py-32 px-4 md:px-8 relative z-10">
         <div class="max-w-5xl mx-auto reveal">
             <div class="text-center mb-16">
-                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700" data-i18n="demo_subtitle">La Solution IA</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="demo_title">Le Studio DeepLens</h3>
-                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700" data-i18n="demo_desc">Démo en direct : Uploadez une image trouble et observez la magie générative.</p>
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="demo_subtitle">La Solution IA</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="demo_title">Le Studio DeepLens</h3>
+                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700"
+                    data-i18n="demo_desc">Démo en direct : Uploadez une image trouble et observez la magie générative.
+                </p>
             </div>
 
-            <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 dark:border-white/10 transition-all duration-700 relative overflow-hidden flex flex-col items-center">
-                
+            <div
+                class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 dark:border-white/10 transition-all duration-700 relative overflow-hidden flex flex-col items-center">
+
                 <!-- Loading State -->
                 <div id="loadingState" class="hidden flex-col items-center justify-center py-20 w-full transition-all">
                     <div class="relative w-32 h-32 flex items-center justify-center mb-10">
-                        <div class="absolute inset-0 rounded-full border-[2px] border-slate-300 dark:border-gray-800 transition-colors duration-700"></div>
-                        <div class="absolute inset-0 rounded-full border-[3px] border-secondary dark:border-primary border-t-transparent border-l-transparent animate-spin transition-colors duration-700"></div>
-                        <div class="absolute inset-2 rounded-full border-[3px] border-blue-400 dark:border-secondary border-b-transparent border-r-transparent animate-spin transition-colors duration-700" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
-                        <div class="w-10 h-10 rounded-full bg-secondary/20 dark:bg-primary/20 shadow-[0_0_20px_rgba(0,87,255,0.4)] dark:shadow-[0_0_30px_rgba(0,240,255,0.8)] animate-pulse transition-all duration-700"></div>
+                        <div
+                            class="absolute inset-0 rounded-full border-[2px] border-slate-300 dark:border-gray-800 transition-colors duration-700">
+                        </div>
+                        <div
+                            class="absolute inset-0 rounded-full border-[3px] border-secondary dark:border-primary border-t-transparent border-l-transparent animate-spin transition-colors duration-700">
+                        </div>
+                        <div class="absolute inset-2 rounded-full border-[3px] border-blue-400 dark:border-secondary border-b-transparent border-r-transparent animate-spin transition-colors duration-700"
+                            style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary/20 dark:bg-primary/20 shadow-[0_0_20px_rgba(0,87,255,0.4)] dark:shadow-[0_0_30px_rgba(0,240,255,0.8)] animate-pulse transition-all duration-700">
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide transition-colors duration-700" data-i18n="loading_title">Inférence en cours...</h3>
-                    <p class="text-secondary dark:text-primary font-medium transition-colors duration-700" data-i18n="loading_desc">Les couches d'Attention décodent la couleur.</p>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide transition-colors duration-700"
+                        data-i18n="loading_title">Inférence en cours...</h3>
+                    <p class="text-secondary dark:text-primary font-medium transition-colors duration-700"
+                        data-i18n="loading_desc">Les couches d'Attention décodent la couleur.</p>
                 </div>
 
                 <!-- Interactive Comparison Result -->
@@ -284,14 +564,22 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
                         <div class="flex items-center gap-3">
                             <span class="flex h-3 w-3 relative">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary dark:bg-primary opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-3 w-3 bg-secondary dark:bg-primary transition-colors duration-700"></span>
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary dark:bg-primary opacity-75"></span>
+                                <span
+                                    class="relative inline-flex rounded-full h-3 w-3 bg-secondary dark:bg-primary transition-colors duration-700"></span>
                             </span>
-                            <span class="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-700" data-i18n="result_title">Restauration Complète</span>
+                            <span
+                                class="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-700"
+                                data-i18n="result_title">Restauration Complète</span>
                         </div>
                         <div class="flex items-center gap-3 flex-wrap justify-end">
-                            <a id="downloadBtn" download="image_restauree_deeplens.jpg" class="flex items-center gap-2 px-5 py-2 rounded-full bg-secondary text-white dark:bg-primary dark:text-deep font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg cursor-pointer hover:-translate-y-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <a id="downloadBtn" download="image_restauree_deeplens.jpg"
+                                class="flex items-center gap-2 px-5 py-2 rounded-full bg-secondary text-white dark:bg-primary dark:text-deep font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg cursor-pointer hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
                                 <span data-i18n="btn_download">Télécharger</span>
                             </a>
                         </div>
@@ -303,31 +591,59 @@
                         <div class="label-badge label-original" id="labelOrig" data-i18n="label_raw">Brute (Floue)</div>
                         <img id="correctedImg" class="compare-overlay" alt="Corrigée" />
                         <div class="label-badge label-ia" id="labelIa" data-i18n="label_ia">IA DeepLens</div>
-                        
+
                         <div class="compare-handle" id="compareHandle"></div>
                         <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider">
                     </div>
-                    
-                    <p class="text-center text-secondary dark:text-primary font-medium text-sm mt-6 animate-bounce transition-colors duration-700" data-i18n="slider_hint">
+
+                    <p class="text-center text-secondary dark:text-primary font-medium text-sm mt-6 animate-bounce transition-colors duration-700"
+                        data-i18n="slider_hint">
                         ← Glissez le curseur pour voir la comparaison →
                     </p>
                 </div>
 
+                <!-- Colab Cloudflare URL Input -->
+                <div class="w-full max-w-lg mx-auto mb-8 animate-fade-in-up">
+                    <label for="colabUrl" class="block text-sm font-bold text-slate-700 dark:text-gray-300 mb-2 transition-colors duration-700" data-i18n="colab_label">
+                        Lien Serveur IA (Colab Cloudflare URL)
+                    </label>
+                    <input type="url" id="colabUrl" placeholder="https://xxxx-xxxx.trycloudflare.com" 
+                        class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 dark:border-white/10 bg-white dark:bg-[#062444] text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-secondary dark:focus:border-primary transition-all shadow-inner"
+                        value="https://doorman-crusader-upswing.ngrok-free.dev">
+                    <p class="text-xs text-slate-500 dark:text-gray-400 mt-2 italic transition-colors duration-700" data-i18n="colab_hint">
+                        Collez le lien généré par Google Colab ici. Laissez 127.0.0.1 pour un test local.
+                    </p>
+                </div>
+
                 <!-- Separator (hidden during load) -->
-                <div id="uploadSeparator" class="flex items-center gap-4 w-full max-w-lg mx-auto mb-8 hidden animate-fade-in-up">
+                <div id="uploadSeparator"
+                    class="flex items-center gap-4 w-full max-w-lg mx-auto mb-8 hidden animate-fade-in-up">
                     <div class="flex-1 h-px bg-slate-300 dark:bg-white/10 transition-colors duration-700"></div>
-                    <span class="text-xs font-bold text-slate-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-700" data-i18n="or_upload">Ou uploadez la vôtre</span>
+                    <span
+                        class="text-xs font-bold text-slate-500 dark:text-gray-300 uppercase tracking-wider transition-colors duration-700"
+                        data-i18n="or_upload">Ou uploadez la vôtre</span>
                     <div class="flex-1 h-px bg-slate-300 dark:bg-white/10 transition-colors duration-700"></div>
                 </div>
 
                 <!-- Upload State (Always visible unless loading) -->
-                <div id="dropZone" class="w-full drop-zone border-2 border-dashed rounded-2xl flex flex-col items-center justify-center py-12 px-6 text-center group bg-white/50 dark:bg-black/20">
-                    <div class="w-20 h-20 rounded-full bg-blue-50 dark:bg-ocean/50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-md ring-1 ring-blue-100 dark:ring-primary/30">
-                        <svg class="w-8 h-8 text-secondary dark:text-primary transition-colors duration-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <div id="dropZone"
+                    class="w-full drop-zone border-2 border-dashed rounded-2xl flex flex-col items-center justify-center py-12 px-6 text-center group bg-white/50 dark:bg-black/20">
+                    <div
+                        class="w-20 h-20 rounded-full bg-blue-50 dark:bg-ocean/50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-md ring-1 ring-blue-100 dark:ring-primary/30">
+                        <svg class="w-8 h-8 text-secondary dark:text-primary transition-colors duration-700" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary dark:group-hover:text-primary transition-colors duration-700" data-i18n="upload_title">Déposez votre capture ici</h3>
-                    <p class="text-slate-600 dark:text-gray-200 text-sm text-center mb-6 transition-colors duration-700" data-i18n="upload_desc">Le réseau neuronal va extraire et corriger la turbidité.</p>
-                    <button class="px-8 py-3 rounded-full bg-gradient-to-r from-secondary to-blue-500 dark:from-primary dark:to-secondary font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-sm" data-i18n="upload_btn">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary dark:group-hover:text-primary transition-colors duration-700"
+                        data-i18n="upload_title">Déposez votre capture ici</h3>
+                    <p class="text-slate-600 dark:text-gray-200 text-sm text-center mb-6 transition-colors duration-700"
+                        data-i18n="upload_desc">Le réseau neuronal va extraire et corriger la turbidité.</p>
+                    <button
+                        class="px-8 py-3 rounded-full bg-gradient-to-r from-secondary to-blue-500 dark:from-primary dark:to-secondary font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-sm"
+                        data-i18n="upload_btn">
                         Sélectionner un fichier
                     </button>
                     <input type="file" id="fileInput" class="hidden" accept="image/*">
@@ -340,136 +656,230 @@
     <section id="backstage" class="py-32 px-6 relative z-10 transition-colors duration-700">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700" data-i18n="backstage_subtitle">L'Évolution de l'Architecture</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="backstage_title">L'Histoire du Projet</h3>
-                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700" data-i18n="backstage_desc">L'évolution architecturale et les défis scientifiques de notre modèle de restauration.</p>
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="backstage_subtitle">L'Évolution de l'Architecture</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="backstage_title">L'Histoire du Projet</h3>
+                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700"
+                    data-i18n="backstage_desc">L'évolution architecturale et les défis scientifiques de notre modèle de
+                    restauration.</p>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 reveal">
                 <!-- Phase 1 -->
-                <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700" data-i18n="phase1_title">Phase 1 : La Baseline et l'Effet Damier</h4>
-                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700" data-i18n="phase1_desc">Notre modèle de base s'appuie sur une architecture U-Net. Les premières prédictions souffraient d'artefacts géométriques (Checkerboard Artifacts). Solution : remplacer les déconvolutions par une Interpolation Bilinéaire pour lisser la texture de l'eau.</p>
+                <div
+                    class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700"
+                        data-i18n="phase1_title">Phase 1 : La Baseline et l'Effet Damier</h4>
+                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700"
+                        data-i18n="phase1_desc">Notre modèle de base s'appuie sur une architecture U-Net. Les premières
+                        prédictions souffraient d'artefacts géométriques (Checkerboard Artifacts). Solution : remplacer
+                        les déconvolutions par une Interpolation Bilinéaire pour lisser la texture de l'eau.</p>
                 </div>
                 <!-- Phase 2 -->
-                <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700" data-i18n="phase2_title">Phase 2 : L'Attention Spatiale</h4>
-                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700" data-i18n="phase2_desc">Un U-Net classique traite l'océan vide avec la même importance qu'un corail. Nous avons intégré des blocs d'Attention (SE Blocks) pour forcer l'IA à se concentrer sur les zones à forte sémantique et ignorer le bruit de fond marin.</p>
+                <div
+                    class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700"
+                        data-i18n="phase2_title">Phase 2 : L'Attention Spatiale</h4>
+                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700"
+                        data-i18n="phase2_desc">Un U-Net classique traite l'océan vide avec la même importance qu'un
+                        corail. Nous avons intégré des blocs d'Attention (SE Blocks) pour forcer l'IA à se concentrer
+                        sur les zones à forte sémantique et ignorer le bruit de fond marin.</p>
                 </div>
                 <!-- Phase 3 -->
-                <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700" data-i18n="phase3_title">Phase 3 : Le Réseau Antagoniste</h4>
-                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700" data-i18n="phase3_desc">Pour passer d'une image "correcte" à une image "ultra-réaliste", un réseau discriminateur (PatchGAN) a été ajouté. Il agit comme un critique d'art, forçant le U-Net à recréer des textures complexes et des couleurs profondes.</p>
+                <div
+                    class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700"
+                        data-i18n="phase3_title">Phase 3 : Le Réseau Antagoniste</h4>
+                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700"
+                        data-i18n="phase3_desc">Pour passer d'une image "correcte" à une image "ultra-réaliste", un
+                        réseau discriminateur (PatchGAN) a été ajouté. Il agit comme un critique d'art, forçant le U-Net
+                        à recréer des textures complexes et des couleurs profondes.</p>
                 </div>
                 <!-- Phase 4 -->
-                <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
-                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700" data-i18n="phase4_title">Phase 4 : La Robustesse (EUVP)</h4>
-                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700" data-i18n="phase4_desc">Pour garantir que notre modèle fonctionne dans tous les océans, le dataset initial a été enrichi avec le dataset massif EUVP. Plus de 11 400 nouvelles images ont été injectées, multipliant par 12 l'expérience de l'IA.</p>
+                <div
+                    class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10 hover:-translate-y-2 hover:shadow-2xl">
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-700"
+                        data-i18n="phase4_title">Phase 4 : La Robustesse (EUVP)</h4>
+                    <p class="text-slate-700 dark:text-gray-100 text-sm leading-relaxed transition-colors duration-700"
+                        data-i18n="phase4_desc">Pour garantir que notre modèle fonctionne dans tous les océans, le
+                        dataset initial a été enrichi avec le dataset massif EUVP. Plus de 11 400 nouvelles images ont
+                        été injectées, multipliant par 12 l'expérience de l'IA.</p>
                 </div>
             </div>
 
             <!-- Section 3: Évaluation Scientifique -->
             <div class="text-center mb-10 reveal">
-                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700" data-i18n="eval_subtitle">Évaluation Scientifique</h2>
-                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="eval_title">Performances du Modèle</h3>
-                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700 max-w-4xl mx-auto" data-i18n="eval_desc">
-                    L'évaluation scientifique de notre modèle repose sur deux métriques fondamentales mesurées sur des images jamais vues par l'IA lors de son apprentissage :<br><br>
-                    <strong class="text-slate-900 dark:text-white">PSNR (Peak Signal-to-Noise Ratio) :</strong> Évalue la fidélité absolue des couleurs et la réduction du bruit.<br>
-                    <strong class="text-slate-900 dark:text-white">SSIM (Structural Similarity) :</strong> Juge la préservation parfaite de la géométrie et des formes.
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="eval_subtitle">Évaluation Scientifique</h2>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="eval_title">Performances du Modèle</h3>
+                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700 max-w-4xl mx-auto"
+                    data-i18n="eval_desc">
+                    L'évaluation scientifique de notre modèle repose sur deux métriques fondamentales mesurées sur des
+                    images jamais vues par l'IA lors de son apprentissage :<br><br>
+                    <strong class="text-slate-900 dark:text-white">PSNR (Peak Signal-to-Noise Ratio) :</strong> Évalue
+                    la fidélité absolue des couleurs et la réduction du bruit.<br>
+                    <strong class="text-slate-900 dark:text-white">SSIM (Structural Similarity) :</strong> Juge la
+                    préservation parfaite de la géométrie et des formes.
                 </p>
             </div>
 
             <!-- Comparison Table -->
-            <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl overflow-hidden transition-all duration-700 shadow-2xl border border-white/20 dark:border-white/10 reveal">
+            <div
+                class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl overflow-hidden transition-all duration-700 shadow-2xl border border-white/20 dark:border-white/10 reveal">
                 <table class="w-full text-left border-collapse text-center">
                     <thead>
-                        <tr class="bg-slate-200/60 dark:bg-black/40 border-b border-slate-300 dark:border-white/10 transition-colors duration-700">
-                            <th class="p-6 text-slate-900 dark:text-white font-bold text-left transition-colors duration-700" data-i18n="th_model">Modèle & Architecture</th>
-                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700" data-i18n="th_dataset">Dataset d'entraînement</th>
-                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700" data-i18n="th_psnr">PSNR (Couleurs)</th>
-                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700" data-i18n="th_ssim">SSIM (Géométrie)</th>
+                        <tr
+                            class="bg-slate-200/60 dark:bg-black/40 border-b border-slate-300 dark:border-white/10 transition-colors duration-700">
+                            <th class="p-6 text-slate-900 dark:text-white font-bold text-left transition-colors duration-700"
+                                data-i18n="th_model">Modèle & Architecture</th>
+                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700"
+                                data-i18n="th_dataset">Dataset d'entraînement</th>
+                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700"
+                                data-i18n="th_psnr">PSNR (Couleurs)</th>
+                            <th class="p-6 text-slate-900 dark:text-white font-bold transition-colors duration-700"
+                                data-i18n="th_ssim">SSIM (Géométrie)</th>
                         </tr>
                     </thead>
                     <tbody class="text-sm">
-                        <tr class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
-                            <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700" data-i18n="td_v2_model">U-Net V2 (Attention)</td>
-                            <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700" data-i18n="td_v2_dataset">UIEB (890 images)</td>
-                            <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">12.51 dB</td>
-                            <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">0.9301</td>
+                        <tr
+                            class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
+                            <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700"
+                                data-i18n="td_v2_model">U-Net V2 (Attention)</td>
+                            <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700"
+                                data-i18n="td_v2_dataset">UIEB (890 images)</td>
+                            <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
+                                12.51 dB</td>
+                            <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
+                                0.9301</td>
                         </tr>
                         <tr class="hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
-                            <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700" data-i18n="td_v3_model">U-Net V3 + PatchGAN</td>
-                            <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700" data-i18n="td_v3_dataset">UIEB + EUVP (12 325 images)</td>
-                            <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700" data-i18n="td_pending">[En attente de l'entraînement]</td>
-                            <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700" data-i18n="td_pending">[En attente de l'entraînement]</td>
+                            <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700"
+                                data-i18n="td_v3_model">U-Net V3 + PatchGAN</td>
+                            <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700"
+                                data-i18n="td_v3_dataset">UIEB + EUVP (12 325 images)</td>
+                            <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700"
+                                data-i18n="td_pending">[En attente de l'entraînement]</td>
+                            <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700"
+                                data-i18n="td_pending">[En attente de l'entraînement]</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
-            <p class="text-sm text-slate-600 dark:text-slate-400 mt-6 px-6 text-center italic transition-colors duration-700" data-i18n="table_note">
-                <strong>Note :</strong> Le score SSIM de 0.93 du modèle V2 est déjà considéré comme excellent dans la littérature, prouvant que notre architecture préserve parfaitement les formes (poissons, coraux) et a éliminé l'effet damier. Le passage au GAN sur 12 000 images (V3) a pour objectif de faire décoller le score PSNR en améliorant le réalisme colorimétrique.
+
+            <p class="text-sm text-slate-600 dark:text-slate-400 mt-6 px-6 text-center italic transition-colors duration-700"
+                data-i18n="table_note">
+                <strong>Note :</strong> Le score SSIM de 0.93 du modèle V2 est déjà considéré comme excellent dans la
+                littérature, prouvant que notre architecture préserve parfaitement les formes (poissons, coraux) et a
+                éliminé l'effet damier. Le passage au GAN sur 12 000 images (V3) a pour objectif de faire décoller le
+                score PSNR en améliorant le réalisme colorimétrique.
             </p>
         </div>
     </section>
 
     <!-- Timeline Section -->
-    <section id="timeline" class="py-24 px-6 relative z-10 transition-colors duration-700 bg-slate-50/50 dark:bg-black/20">
+    <section id="timeline"
+        class="py-24 px-6 relative z-10 transition-colors duration-700 bg-slate-50/50 dark:bg-black/20">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700" data-i18n="timeline_subtitle">Parcours & Méthodologie</h2>
-                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="timeline_title">Roadmap du Projet</h3>
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="timeline_subtitle">Parcours & Méthodologie</h2>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="timeline_title">Roadmap du Projet</h3>
             </div>
-            
-            <div class="relative border-l-2 border-slate-300 dark:border-white/20 ml-4 md:ml-8 transition-colors duration-700">
-                
+
+            <div
+                class="relative border-l-2 border-slate-300 dark:border-white/20 ml-4 md:ml-8 transition-colors duration-700">
+
                 <!-- Milestone 1 -->
                 <div class="mb-12 ml-8 reveal relative">
-                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700"></div>
-                    <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
-                        <span class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700" data-i18n="time_m1">Mi-Mai à Juin</span>
-                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700" data-i18n="title_m1">État de l'art & Certification Deep Learning</h4>
-                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700" data-i18n="desc_m1">Plongée dans la littérature scientifique sur la restauration d'images sous-marines et validation des compétences théoriques via certification spécialisée.</p>
+                    <div
+                        class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700">
+                    </div>
+                    <div
+                        class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                            data-i18n="time_m1">Mi-Mai à Juin</span>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700"
+                            data-i18n="title_m1">État de l'art & Certification Deep Learning</h4>
+                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700"
+                            data-i18n="desc_m1">Plongée dans la littérature scientifique sur la restauration d'images
+                            sous-marines et validation des compétences théoriques via certification spécialisée.</p>
                     </div>
                 </div>
 
                 <!-- Milestone 2 -->
                 <div class="mb-12 ml-8 reveal relative">
-                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700"></div>
-                    <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
-                        <span class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700" data-i18n="time_m2">Début Juillet</span>
-                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700" data-i18n="title_m2">Baseline U-Net & Dataset UIEB</h4>
-                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700" data-i18n="desc_m2">Développement de l'architecture U-Net classique (PyTorch). Traitement et préparation du premier dataset de référence (UIEB - 890 images).</p>
+                    <div
+                        class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700">
+                    </div>
+                    <div
+                        class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                            data-i18n="time_m2">Début Juillet</span>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700"
+                            data-i18n="title_m2">Baseline U-Net & Dataset UIEB</h4>
+                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700"
+                            data-i18n="desc_m2">Développement de l'architecture U-Net classique (PyTorch). Traitement et
+                            préparation du premier dataset de référence (UIEB - 890 images).</p>
                     </div>
                 </div>
 
                 <!-- Milestone 3 -->
                 <div class="mb-12 ml-8 reveal relative">
-                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700"></div>
-                    <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
-                        <span class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700" data-i18n="time_m3">Fin Juillet</span>
-                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700" data-i18n="title_m3">Optimisation & Architecture PatchGAN</h4>
-                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700" data-i18n="desc_m3">Résolution de l'effet damier (Interpolation Bilinéaire) et intégration de l'Attention Spatiale. Construction du réseau antagoniste pour des textures ultra-réalistes.</p>
+                    <div
+                        class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700">
+                    </div>
+                    <div
+                        class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                            data-i18n="time_m3">Fin Juillet</span>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700"
+                            data-i18n="title_m3">Optimisation & Architecture PatchGAN</h4>
+                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700"
+                            data-i18n="desc_m3">Résolution de l'effet damier (Interpolation Bilinéaire) et intégration
+                            de l'Attention Spatiale. Construction du réseau antagoniste pour des textures
+                            ultra-réalistes.</p>
                     </div>
                 </div>
 
                 <!-- Milestone 4 -->
                 <div class="mb-12 ml-8 reveal relative">
-                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700"></div>
-                    <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
-                        <span class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700" data-i18n="time_m4">Début Août</span>
-                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700" data-i18n="title_m4">Entraînement Massif (EUVP)</h4>
-                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700" data-i18n="desc_m4">Ajout de la donnée, entraînement sur 12 000+ paires d'images pour la robustesse colorimétrique.</p>
+                    <div
+                        class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-400 dark:bg-white/30 border-4 border-slate-100 dark:border-abyss transition-colors duration-700">
+                    </div>
+                    <div
+                        class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-white/40 dark:border-white/10 hover:-translate-y-1 transition-all duration-300">
+                        <span
+                            class="inline-block px-3 py-1 bg-slate-200 dark:bg-secondary text-slate-900 dark:text-white font-bold rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                            data-i18n="time_m4">Début Août</span>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700"
+                            data-i18n="title_m4">Entraînement Massif (EUVP)</h4>
+                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700"
+                            data-i18n="desc_m4">Ajout de la donnée, entraînement sur 12 000+ paires d'images pour la
+                            robustesse colorimétrique.</p>
                     </div>
                 </div>
 
                 <!-- Milestone 5 -->
                 <div class="ml-8 reveal relative">
-                    <div class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-secondary dark:bg-primary shadow-[0_0_15px_rgba(0,87,255,0.4)] dark:shadow-[0_0_15px_rgba(0,240,255,0.8)] border-4 border-slate-100 dark:border-abyss transition-all duration-700 animate-pulse"></div>
-                    <div class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-secondary/30 dark:border-primary/30 hover:-translate-y-1 transition-all duration-300">
-                        <span class="inline-block px-3 py-1 bg-secondary text-white dark:bg-primary dark:text-deep rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700" data-i18n="time_m5">Mi-Août</span>
-                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700" data-i18n="title_m5">Déploiement & Rapport</h4>
-                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700" data-i18n="desc_m5">Déploiement via backend FastAPI, tests de l'interface et rédaction du rapport final de stage.</p>
+                    <div
+                        class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-secondary dark:bg-primary shadow-[0_0_15px_rgba(0,87,255,0.4)] dark:shadow-[0_0_15px_rgba(0,240,255,0.8)] border-4 border-slate-100 dark:border-abyss transition-all duration-700 animate-pulse">
+                    </div>
+                    <div
+                        class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-6 rounded-3xl shadow-lg border border-secondary/30 dark:border-primary/30 hover:-translate-y-1 transition-all duration-300">
+                        <span
+                            class="inline-block px-3 py-1 bg-secondary text-white dark:bg-primary dark:text-deep rounded-full text-xs font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                            data-i18n="time_m5">Mi-Août</span>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-700"
+                            data-i18n="title_m5">Déploiement & Rapport</h4>
+                        <p class="text-slate-700 dark:text-gray-200 text-sm leading-relaxed transition-colors duration-700"
+                            data-i18n="desc_m5">Déploiement via backend FastAPI, tests de l'interface et rédaction du
+                            rapport final de stage.</p>
                     </div>
                 </div>
 
@@ -479,45 +889,73 @@
 
     <!-- Tech Stack & GitHub Section -->
     <section id="tech-stack" class="py-24 px-6 relative z-10 transition-colors duration-700">
-        <div class="max-w-5xl mx-auto bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 dark:border-white/10 reveal flex flex-col md:flex-row items-center justify-between gap-12">
+        <div
+            class="max-w-5xl mx-auto bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 dark:border-white/10 reveal flex flex-col md:flex-row items-center justify-between gap-12">
             <div class="flex-1">
-                <h3 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-700" data-i18n="stack_title">Tech Stack & Code Source</h3>
-                <p class="text-slate-700 dark:text-gray-200 text-base mb-6 transition-colors duration-700" data-i18n="stack_desc">
-                    L'architecture du modèle PyTorch, les traitements de données et l'API FastAPI sont disponibles pour consultation.
+                <h3 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="stack_title">Tech Stack & Code Source</h3>
+                <p class="text-slate-700 dark:text-gray-200 text-base mb-6 transition-colors duration-700"
+                    data-i18n="stack_desc">
+                    L'architecture du modèle PyTorch, les traitements de données et l'API FastAPI sont disponibles pour
+                    consultation.
                 </p>
                 <div class="flex flex-wrap gap-2 mb-8">
-                    <span class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">PyTorch</span>
-                    <span class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">FastAPI</span>
-                    <span class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">Python 3</span>
-                    <span class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">TailwindCSS</span>
+                    <span
+                        class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">PyTorch</span>
+                    <span
+                        class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">FastAPI</span>
+                    <span
+                        class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">Python
+                        3</span>
+                    <span
+                        class="px-3 py-1 bg-slate-800 text-white dark:bg-white/10 dark:text-gray-100 rounded-md text-xs font-bold tracking-wide">TailwindCSS</span>
                 </div>
             </div>
             <div class="flex-shrink-0">
-                <a href="#" target="_blank" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-deep font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 shadow-xl cursor-pointer">
-                    <div class="absolute inset-0 bg-gradient-to-r from-slate-700 to-slate-900 dark:from-gray-200 dark:to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <svg class="w-6 h-6 relative z-10" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
-                    <span class="relative z-10 transition-colors duration-300" data-i18n="btn_github">Voir sur GitHub</span>
+                <a href="#" target="_blank"
+                    class="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-deep font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 shadow-xl cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-slate-700 to-slate-900 dark:from-gray-200 dark:to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                    <svg class="w-6 h-6 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z">
+                        </path>
+                    </svg>
+                    <span class="relative z-10 transition-colors duration-300" data-i18n="btn_github">Voir sur
+                        GitHub</span>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-300 dark:border-white/10 bg-slate-200/50 dark:bg-abyss py-12 relative z-10 text-center transition-colors duration-700">
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-secondary to-blue-400 dark:from-primary dark:to-secondary flex items-center justify-center mb-6 shadow-md transition-all duration-700">
-            <svg class="w-6 h-6 text-white dark:text-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+    <footer
+        class="border-t border-slate-300 dark:border-white/10 bg-slate-200/50 dark:bg-abyss py-12 relative z-10 text-center transition-colors duration-700">
+        <div
+            class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-secondary to-blue-400 dark:from-primary dark:to-secondary flex items-center justify-center mb-6 shadow-md transition-all duration-700">
+            <svg class="w-6 h-6 text-white dark:text-deep" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                </path>
+            </svg>
         </div>
-        <p class="text-slate-900 dark:text-white font-medium font-medium text-lg transition-colors duration-700" data-i18n="footer_title">Conçu pour l'exploration sous-marine.</p>
-        <p class="text-slate-900 dark:text-gray-100 text-sm mt-2 transition-colors duration-700" data-i18n="footer_desc">Modèle Génératif Profond • Backend FastAPI • Interface Interactive</p>
+        <p class="text-slate-900 dark:text-white font-medium font-medium text-lg transition-colors duration-700"
+            data-i18n="footer_title">Conçu pour l'exploration sous-marine.</p>
+        <p class="text-slate-900 dark:text-gray-100 text-sm mt-2 transition-colors duration-700"
+            data-i18n="footer_desc">Modèle Génératif Profond • Backend FastAPI • Interface Interactive</p>
     </footer>
 
     <!-- Logic -->
     <script>
-        // L'URL de ton API (Backend)
-        // Pour tester en local sur ton Mac :
-        const API_URL = 'http://localhost:8000/predict';
-        // Quand tu auras déployé sur Render, commente la ligne du dessus et décommente celle du dessous :
-        // const API_URL = 'https://moutassim-underwater.onrender.com/predict';
+        function getApiUrl() {
+            let baseUrl = document.getElementById('colabUrl').value.trim();
+            // Retirer le slash final s'il y en a un
+            if (baseUrl.endsWith('/')) {
+                baseUrl = baseUrl.slice(0, -1);
+            }
+            return baseUrl + '/predict';
+        }
 
         // --- TRANSLATION LOGIC (i18n) ---
         const translations = {
@@ -675,7 +1113,7 @@
 
         let currentLang = 'fr';
         const langToggleBtn = document.getElementById('langToggle');
-        
+
         function updateTranslations() {
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
@@ -730,7 +1168,7 @@
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 nav.classList.add('shadow-lg', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'dark:border-white/10');
-                if(htmlDoc.classList.contains('dark')) {
+                if (htmlDoc.classList.contains('dark')) {
                     nav.style.backgroundColor = 'rgba(0,5,10,0.8)';
                 } else {
                     nav.style.backgroundColor = 'rgba(255,255,255,0.95)';
@@ -747,7 +1185,7 @@
         const loadingState = document.getElementById('loadingState');
         const resultSection = document.getElementById('resultSection');
         const uploadSeparator = document.getElementById('uploadSeparator');
-        
+
         const originalImg = document.getElementById('originalImg');
         const correctedImg = document.getElementById('correctedImg');
         const downloadBtn = document.getElementById('downloadBtn');
@@ -773,11 +1211,11 @@
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropZone.classList.remove('dragover');
-            if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
         });
         dropZone.addEventListener('click', () => fileInput.click());
         fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length) handleFile(e.target.files[0]);
+            if (e.target.files.length) handleFile(e.target.files[0]);
         });
 
         async function handleFile(file) {
@@ -789,7 +1227,7 @@
             const reader = new FileReader();
             reader.onload = (e) => { originalImg.src = e.target.result; };
             reader.readAsDataURL(file);
-            
+
             // Masquer les éléments existants pour le chargement
             resultSection.classList.add('hidden');
             resultSection.classList.remove('flex');
@@ -797,7 +1235,7 @@
             uploadSeparator.classList.remove('flex');
             dropZone.classList.add('hidden');
             dropZone.classList.remove('flex');
-            
+
             // Afficher le loader
             loadingState.classList.remove('hidden');
             loadingState.classList.add('flex');
@@ -806,7 +1244,7 @@
             formData.append('file', file);
 
             try {
-                const response = await fetch(API_URL, {
+                const response = await fetch(getApiUrl(), {
                     method: 'POST',
                     body: formData
                 });
@@ -817,39 +1255,39 @@
                 const objectURL = URL.createObjectURL(blob);
                 correctedImg.src = objectURL;
                 downloadBtn.href = objectURL;
-                
+
                 // Reset le slider
                 slider.value = 50;
                 overlay.style.clipPath = `polygon(0 0, 50% 0, 50% 100%, 0 100%)`;
                 handle.style.left = `50%`;
                 labelIa.style.opacity = '1';
                 labelOrig.style.opacity = '1';
-                
+
                 // Réafficher les éléments finaux
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
-                
+
                 resultSection.classList.remove('hidden');
                 resultSection.classList.add('flex');
-                
+
                 uploadSeparator.classList.remove('hidden');
                 uploadSeparator.classList.add('flex');
-                
+
                 dropZone.classList.remove('hidden');
                 dropZone.classList.add('flex');
-                
+
             } catch (error) {
                 console.error(error);
                 alert(currentLang === 'fr' ? "Erreur de connexion à l'IA. Vérifiez que le serveur FastAPI (uvicorn) tourne sur votre Mac." : "AI connection error. Please ensure the FastAPI (uvicorn) server is running on your Mac.");
-                
+
                 // Mettre l'image corrige = image originale par défaut au lieu de la tortue
                 correctedImg.src = originalImg.src;
                 downloadBtn.href = originalImg.src;
-                
+
                 // En cas d'erreur, on remet le dropzone au moins
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
-                
+
                 resultSection.classList.remove('hidden');
                 resultSection.classList.add('flex');
             }
@@ -869,4 +1307,5 @@
         });
     </script>
 </body>
+
 </html>

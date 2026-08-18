@@ -1,56 +1,57 @@
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 from torchvision.utils import save_image
 
-from dataset import Underwaterdataset
-from model import Unet
-from metrics import calculate_psnr 
-from config import (CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE, 
+from core.dataset import Underwaterdataset
+from core.model import Unet
+from core.metrics import calculate_psnr 
+from core.config import (CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE, 
                     LEARNING_RATE, EPOCHS, VAL_SPLIT, DEVICE, MEAN, STD)
 
 def train():
 
-    # 1. Chargement des données globales
+    # 1. Dataset Initialization
     full_dataset = Underwaterdataset(CHEMIN_RAW, CHEMIN_REF)
     
-    # --- LE SPLIT DYNAMIQUE (LA SÉPARATION TRAIN / VAL) ---
+    # --- DYNAMIC TRAIN/VAL SPLIT ---
     total_size = len(full_dataset)
-    # On calcule dynamiquement la taille de l'examen (ex: 10% de 890 = 89 images)
+    # Calculate validation size (e.g., 10% of total)
     val_size = int(total_size * VAL_SPLIT)
     train_size = total_size - val_size 
     
-    # Fixation du seed pour assurer la reproductibilité du split
+    # Set random seed for deterministic splitting
     generator = torch.Generator().manual_seed(42)
     train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size], generator=generator)
     
-    # On crée deux chargeurs différents
+    # Initialize Dataloaders
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
     print(f"Répartition du Dataset : Train={len(train_dataset)}, Val={len(val_dataset)}")
     # ----------------------------------------------
 
-    # 2. Modèle, Loss et Optimiseur
+    # 2. Model, Loss, and Optimizer Initialization
     model = Unet().to(DEVICE)
     chemin_modele = "unet_underwater_model.pth"
     if os.path.exists(chemin_modele):
-        print(f"Chargement des poids existants depuis {chemin_modele}...")
+        print(f"[INFO] Loading existing model weights from {chemin_modele}...")
         model.load_state_dict(torch.load(chemin_modele, weights_only=True, map_location=DEVICE))
     else:
-        print("Initialisation des poids du modèle.")
+        print("[INFO] Initializing model weights from scratch.")
 
     criterion = nn.L1Loss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     
-    # 3. Boucle principale (Les Époques)
+    # 3. Training Loop
     for epoch in range(EPOCHS):
         # ==========================================
-        # PHASE 1 : ENTRAÎNEMENT
-        # Le modèle tente de restaurer l'image, on calcule son erreur (L1 Loss), 
-        # et on ajuste ses poids (Backpropagation) pour qu'il s'améliore au tour suivant.
+        # PHASE 1: TRAINING
+        # Forward pass, L1 Loss calculation, and backpropagation.
         # ==========================================
         model.train() 
         train_loss = 0.0
@@ -66,7 +67,7 @@ def train():
             
             train_loss += loss.item()
             
-            # Sauvegarde de la toute première image de l'époque
+            # Save qualitative visual results on the first batch
             if batch_idx == 0:
                 os.makedirs("test", exist_ok=True)
                 mean_tensor = torch.tensor(MEAN).view(1, 3, 1, 1).to(DEVICE)
@@ -82,9 +83,8 @@ def train():
         avg_train_loss = train_loss / len(train_loader)
         
         # ==========================================
-        # PHASE 2 : VALIDATION
-        # On fige les poids du modèle (pas d'apprentissage). On lui fait passer l'examen sur 
-        # nos images mises de côté pour vérifier qu'il généralise bien et ne fait pas de surapprentissage.
+        # PHASE 2: VALIDATION
+        # Evaluate model generalization on the hold-out set without updating weights.
         # ==========================================
         model.eval() 
         val_loss = 0.0
@@ -97,17 +97,17 @@ def train():
                 val_outputs = model(val_raw)
                 val_loss += criterion(val_outputs, val_ref).item()
                 
-                # Calcul de la métrique PSNR sur le batch de validation
+                # Calculate Peak Signal-to-Noise Ratio (PSNR) for evaluation
                 val_psnr += calculate_psnr(val_outputs, val_ref).item()
                 
         # Moyenne du PSNR sur l'ensemble de validation
         avg_val_loss = val_loss / len(val_loader)
         avg_val_psnr = val_psnr / len(val_loader)
         
-        # Bilan de fin d'époque
-        print(f"Epoch [{epoch+1}/{EPOCHS}] | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f} | Val PSNR: {avg_val_psnr:.2f} dB")
+        # Epoch Summary
+        print(f"[Epoch {epoch+1}/{EPOCHS}] | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f} | Val PSNR: {avg_val_psnr:.2f} dB")
                 
-        # Sauvegarde de sécurité
+        # Save model checkpoint
         torch.save(model.state_dict(), chemin_modele)
 
 if __name__ == "__main__":
