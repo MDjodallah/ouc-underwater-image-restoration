@@ -3,7 +3,7 @@ set -e
 
 # Déploiement automatique vers le serveur Hetzner
 SERVER_IP="2.28.0.161"
-KEY_PATH="~/.ssh/hetzner_key"
+KEY_PATH="$HOME/.ssh/hetzner_key"
 
 echo "🚀 Début du déploiement vers $SERVER_IP..."
 
@@ -21,7 +21,7 @@ ssh -i $KEY_PATH -o StrictHostKeyChecking=no root@$SERVER_IP << 'EOF'
   fi
 
   # Lancer l'API en fond
-  docker-compose up -d --build
+  docker compose up -d --build
 EOF
 
 echo "✅ Déploiement terminé ! L'API est en ligne sur http://$SERVER_IP"

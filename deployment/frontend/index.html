@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepLens | L'Océan Révélé</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌊</text></svg>">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌊</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <script>
@@ -365,13 +366,15 @@
         <div class="flex items-center gap-4 md:gap-6">
             <div
                 class="hidden md:flex gap-6 lg:gap-8 text-sm font-medium text-slate-600 dark:text-gray-200 transition-colors duration-700">
+                <a href="#backstage" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_backstage">Histoire</a>
                 <a href="#mission" class="hover:text-secondary dark:hover:text-primary transition-colors"
                     data-i18n="nav_mission">Le Défi Marin</a>
                 <a href="#demo"
                     class="hover:text-secondary dark:hover:text-white text-slate-900 dark:text-white transition-colors"
-                    data-i18n="nav_demo">Démo Interactive</a>
-                <a href="#backstage" class="hover:text-secondary dark:hover:text-primary transition-colors"
-                    data-i18n="nav_backstage">Les Coulisses</a>
+                    data-i18n="nav_demo">Studio DeepLens</a>
+                <a href="#applications" class="hover:text-secondary dark:hover:text-primary transition-colors"
+                    data-i18n="nav_applications">Applications</a>
                 <a href="#timeline" class="hover:text-secondary dark:hover:text-primary transition-colors"
                     data-i18n="nav_timeline">Roadmap</a>
                 <a href="#tech-stack" class="hover:text-secondary dark:hover:text-primary transition-colors"
@@ -451,245 +454,6 @@
     </header>
 
     <!-- Context Section -->
-    <section id="mission" class="py-32 px-6 relative z-10 transition-colors duration-700">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
-                    <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
-                        data-i18n="mission_subtitle">Le Défi Physique (Introduction)</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
-                        data-i18n="mission_title">Pourquoi restaurer les images sous-marines ?</h3>
-                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed mb-6 transition-colors duration-700"
-                        data-i18n="mission_p1">
-                        L'exploration océanique se heurte à des lois physiques strictes. Sous l'eau, la lumière subit
-                        deux phénomènes majeurs : l'absorption (qui fait disparaître les longueurs d'onde rouges en
-                        premier, donnant un ton vert/bleu aux images) et la diffusion spatiale (qui crée un voile
-                        laiteux et réduit le contraste).
-                    </p>
-                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed transition-colors duration-700"
-                        data-i18n="mission_p2">
-                        L'objectif de ce projet de recherche est d'utiliser l'Intelligence Artificielle (Deep Learning)
-                        pour inverser mathématiquement ces distorsions physiques et restaurer les vraies couleurs des
-                        fonds marins en temps réel.
-                    </p>
-                </div>
-                <div
-                    class="reveal bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-8 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10">
-                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none">
-                    </div>
-                    <div class="flex flex-col gap-8 relative z-10">
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-14 h-14 shrink-0 rounded-full bg-red-100 dark:bg-red-500/20 border border-red-200 dark:border-red-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
-                                <span
-                                    class="text-red-600 dark:text-red-400 font-bold transition-colors duration-700">-5m</span>
-                            </div>
-                            <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
-                                    data-i18n="depth_5_title">Perte des Rouges</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
-                                    data-i18n="depth_5_desc">Disparition totale du spectre rouge.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-14 h-14 shrink-0 rounded-full bg-orange-100 dark:bg-orange-500/20 border border-orange-200 dark:border-orange-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
-                                <span
-                                    class="text-orange-600 dark:text-orange-400 font-bold transition-colors duration-700">-15m</span>
-                            </div>
-                            <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
-                                    data-i18n="depth_15_title">Perte des Oranges/Jaunes</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
-                                    data-i18n="depth_15_desc">Les teintes chaudes s'effacent complètement.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-6">
-                            <div
-                                class="w-14 h-14 shrink-0 rounded-full bg-blue-100 dark:bg-blue-500/20 border border-blue-200 dark:border-blue-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
-                                <span
-                                    class="text-blue-600 dark:text-blue-400 font-bold transition-colors duration-700">-30m+</span>
-                            </div>
-                            <div>
-                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
-                                    data-i18n="depth_30_title">Domination Bleue</h4>
-                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
-                                    data-i18n="depth_30_desc">Le paysage marin devient monochromatique.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Application Section (Live Demo) -->
-    <section id="demo" class="py-32 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto reveal">
-            <div class="text-center mb-16">
-                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
-                    data-i18n="demo_subtitle">La Solution IA</h2>
-                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
-                    data-i18n="demo_title">Le Studio DeepLens</h3>
-                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700"
-                    data-i18n="demo_desc">Démo en direct : Uploadez une image trouble et observez la magie générative.
-                </p>
-            </div>
-
-            <div
-                class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 dark:border-white/10 transition-all duration-700 relative overflow-hidden flex flex-col items-center">
-
-                <!-- Loading State -->
-                <div id="loadingState" class="hidden flex-col items-center justify-center py-20 w-full transition-all">
-                    <div class="relative w-32 h-32 flex items-center justify-center mb-10">
-                        <div
-                            class="absolute inset-0 rounded-full border-[2px] border-slate-300 dark:border-gray-800 transition-colors duration-700">
-                        </div>
-                        <div
-                            class="absolute inset-0 rounded-full border-[3px] border-secondary dark:border-primary border-t-transparent border-l-transparent animate-spin transition-colors duration-700">
-                        </div>
-                        <div class="absolute inset-2 rounded-full border-[3px] border-blue-400 dark:border-secondary border-b-transparent border-r-transparent animate-spin transition-colors duration-700"
-                            style="animation-direction: reverse; animation-duration: 1.5s;"></div>
-                        <div
-                            class="w-10 h-10 rounded-full bg-secondary/20 dark:bg-primary/20 shadow-[0_0_20px_rgba(0,87,255,0.4)] dark:shadow-[0_0_30px_rgba(0,240,255,0.8)] animate-pulse transition-all duration-700">
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide transition-colors duration-700"
-                        data-i18n="loading_title">Inférence en cours...</h3>
-                    <p class="text-secondary dark:text-primary font-medium transition-colors duration-700"
-                        data-i18n="loading_desc">Les couches d'Attention décodent la couleur.</p>
-                </div>
-
-                <!-- Interactive Comparison Result -->
-                <div id="resultSection" class="flex flex-col w-full animate-fade-in-up mb-12">
-                    <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
-                        <div class="flex items-center gap-3">
-                            <span class="flex h-3 w-3 relative">
-                                <span
-                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary dark:bg-primary opacity-75"></span>
-                                <span
-                                    class="relative inline-flex rounded-full h-3 w-3 bg-secondary dark:bg-primary transition-colors duration-700"></span>
-                            </span>
-                            <span
-                                class="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-700"
-                                data-i18n="result_title">Restauration Complète</span>
-                        </div>
-                        <div class="flex items-center gap-3 flex-wrap justify-end">
-                            <a id="downloadBtn" href="test1_result.png" download="image_restauree_deeplens.jpg"
-                                class="flex items-center gap-2 px-5 py-2 rounded-full bg-secondary text-white dark:bg-primary dark:text-deep font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg cursor-pointer hover:-translate-y-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                                </svg>
-                                <span data-i18n="btn_download">Télécharger</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- The Magic Slider -->
-                    <div class="compare-wrapper" id="compareWrapper">
-                        <img id="originalImg" class="compare-img" alt="Originale" src="murky_test.jpg" />
-                        <div class="label-badge label-original" id="labelOrig" data-i18n="label_raw">Brute (Floue)</div>
-                        <img id="correctedImg" class="compare-overlay" alt="Corrigée" src="murky_test.jpg" />
-                        <div class="label-badge label-ia" id="labelIa" data-i18n="label_ia">IA DeepLens</div>
-
-                        <div class="compare-handle" id="compareHandle"></div>
-                        <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider">
-                    </div>
-
-                    <p class="text-center text-secondary dark:text-primary font-medium text-sm mt-6 animate-bounce transition-colors duration-700"
-                        data-i18n="slider_hint">
-                        ← Glissez le curseur pour voir la comparaison →
-                    </p>
-                </div>
-
-                <!-- Dynamic Model Selector & Settings -->
-                <div class="w-full max-w-lg mx-auto mb-8 animate-fade-in-up bg-slate-100 dark:bg-[#062444] p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-inner">
-                    <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
-                        <svg class="w-4 h-4 text-secondary dark:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <span data-i18n="settings_title">Paramètres d'Inférence</span>
-                    </h4>
-                    
-                    <div class="mb-4">
-                        <label for="modelSelect" class="block text-xs font-bold text-slate-500 dark:text-gray-400 mb-2 uppercase tracking-wider" data-i18n="model_label">
-                            Modèle Neuronal (Moteur ONNX Universel)
-                        </label>
-                        <select id="modelSelect" class="w-full px-4 py-3 rounded-xl border-2 border-white dark:border-white/5 bg-white dark:bg-[#031930] text-slate-900 dark:text-white focus:outline-none focus:border-secondary dark:focus:border-primary transition-all font-medium cursor-pointer shadow-sm appearance-none" onchange="updateModelInfo()">
-                            <option value="v1" selected data-i18n="opt_v1">U-Net V1 (Standard - 890 images)</option>
-                            <option value="v2" data-i18n="opt_v2">U-Net V2 + PatchGAN (Couleurs pro - 890 images)</option>
-                            <option value="v3" data-i18n="opt_v3">U-Net V3 + PatchGAN (Massif - 12 325 images)</option>
-                        </select>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-6 mb-2 pt-4 border-t border-slate-200 dark:border-white/10">
-                        <div>
-                            <span class="block text-sm font-bold text-slate-800 dark:text-white" data-i18n="onnx_title">Accélération ONNX ⚡</span>
-                            <span class="block text-xs text-slate-500 dark:text-gray-400" data-i18n="onnx_desc">Passe du moteur PyTorch à ONNX Runtime.</span>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="onnxToggle" class="sr-only peer" checked>
-                            <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-secondary dark:peer-checked:bg-primary"></div>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-6 mb-2 pt-4 border-t border-slate-200 dark:border-white/10">
-                        <div>
-                            <span class="block text-sm font-bold text-slate-800 dark:text-white" data-i18n="tiles_title">Traitement par Tuiles (HD)</span>
-                            <span class="block text-xs text-slate-500 dark:text-gray-400" data-i18n="tiles_desc">Préserve la résolution 4K (plus lent).</span>
-                        </div>
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="tuileToggle" class="sr-only peer">
-                            <div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-secondary dark:peer-checked:bg-primary"></div>
-                        </label>
-                    </div>
-
-                    <!-- Dynamic Dataset Info Box -->
-                    <div id="modelInfoBox" class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 rounded-xl text-sm transition-all duration-300 shadow-sm">
-                        <div class="flex items-start gap-3">
-                            <div class="mt-0.5 text-secondary dark:text-primary">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div>
-                                <strong id="infoTitle" class="block text-slate-800 dark:text-blue-100 mb-1">Architecture V2 (Sélectionnée)</strong>
-                                <p id="infoDesc" class="text-slate-600 dark:text-blue-200/80 leading-relaxed">
-                                    Entraînée sur le dataset UIEB (890 images) avec un réseau discriminateur (PatchGAN). Permet un meilleur contraste et une restauration profonde des couleurs chaudes.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Default Test Button (Removed as per user request to show directly) -->
-
-
-                <!-- Upload State (Always visible unless loading) -->
-                <div id="dropZone"
-                    class="w-full drop-zone border-2 border-dashed rounded-2xl flex flex-col items-center justify-center py-12 px-6 text-center group bg-white/50 dark:bg-black/20">
-                    <div
-                        class="w-20 h-20 rounded-full bg-blue-50 dark:bg-ocean/50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-md ring-1 ring-blue-100 dark:ring-primary/30">
-                        <svg class="w-8 h-8 text-secondary dark:text-primary transition-colors duration-700" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary dark:group-hover:text-primary transition-colors duration-700"
-                        data-i18n="upload_title">Déposez votre capture ici</h3>
-                    <p class="text-slate-600 dark:text-gray-200 text-sm text-center mb-6 transition-colors duration-700"
-                        data-i18n="upload_desc">Le réseau neuronal va extraire et corriger la turbidité.</p>
-                    <button
-                        class="px-8 py-3 rounded-full bg-gradient-to-r from-secondary to-blue-500 dark:from-primary dark:to-secondary font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-sm"
-                        data-i18n="upload_btn">
-                        Sélectionner un fichier
-                    </button>
-                    <input type="file" id="fileInput" class="hidden" accept="image/*">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEW SECTION: BACKSTAGE (Project Journey) -->
     <section id="backstage" class="py-32 px-6 relative z-10 transition-colors duration-700">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16 reveal">
@@ -780,35 +544,37 @@
                         </tr>
                     </thead>
                     <tbody class="text-sm">
-                        <tr class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
+                        <tr
+                            class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
                             <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700"
                                 data-i18n="td_v1_model">U-Net V1 (Standard)</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700"
                                 data-i18n="td_v1_dataset">UIEB (890 images)</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
-                                6.24 dB</td>
+                                6.12 dB</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
-                                -</td>
+                                0.5553</td>
                         </tr>
-                        <tr class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
+                        <tr
+                            class="border-b border-slate-300 dark:border-white/10 hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
                             <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700"
-                                data-i18n="td_v2_model">U-Net V2 + PatchGAN</td>
+                                data-i18n="td_v2_model">U-Net V2 (Attention + Bilinear)</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700"
                                 data-i18n="td_v2_dataset">UIEB (890 images)</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
-                                12.51 dB</td>
+                                4.85 dB</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-bold transition-colors duration-700">
-                                0.9301</td>
+                                0.4964</td>
                         </tr>
                         <tr class="hover:bg-slate-100/50 dark:hover:bg-white/5 transition-colors duration-300">
                             <td class="p-6 text-slate-900 dark:text-white font-medium font-medium text-left transition-colors duration-700"
-                                data-i18n="td_v3_model">U-Net V3 + PatchGAN (Massif)</td>
+                                data-i18n="td_v3_model">U-Net V3 (Final GAN)</td>
                             <td class="p-6 text-slate-700 dark:text-gray-200 font-medium transition-colors duration-700"
                                 data-i18n="td_v3_dataset">UIEB + EUVP (12 325 images)</td>
                             <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700">
-                                13.77 dB</td>
+                                12.16 dB</td>
                             <td class="p-6 text-secondary dark:text-primary font-bold transition-colors duration-700"
-                                data-i18n="td_pending">[Évaluation en cours]</td>
+                                data-i18n="td_pending">0.7255</td>
                         </tr>
                     </tbody>
                 </table>
@@ -824,7 +590,413 @@
         </div>
     </section>
 
-    <!-- Timeline Section -->
+    <section id="mission" class="py-32 px-6 relative z-10 transition-colors duration-700">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                        data-i18n="mission_subtitle">Le Défi Physique</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                        data-i18n="mission_title">Pourquoi restaurer les images sous-marines ?</h3>
+                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed mb-6 transition-colors duration-700"
+                        data-i18n="mission_p1">
+                        L'exploration océanique se heurte à des lois physiques strictes. Sous l'eau, la lumière subit
+                        deux phénomènes majeurs : l'absorption (qui fait disparaître les longueurs d'onde rouges en
+                        premier, donnant un ton vert/bleu aux images) et la diffusion spatiale (qui crée un voile
+                        laiteux et réduit le contraste).
+                    </p>
+                    <p class="text-slate-700 dark:text-gray-200 text-lg leading-relaxed transition-colors duration-700"
+                        data-i18n="mission_p2">
+                        L'objectif de ce projet de recherche est d'utiliser l'Intelligence Artificielle (Deep Learning)
+                        pour inverser mathématiquement ces distorsions physiques et restaurer les vraies couleurs des
+                        fonds marins en temps réel.
+                    </p>
+                </div>
+                <div
+                    class="reveal bg-white/80 dark:bg-[#031930] backdrop-blur-xl p-8 rounded-3xl relative overflow-hidden transition-all duration-700 shadow-xl border border-white/20 dark:border-white/10">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none">
+                    </div>
+                    <div class="flex flex-col gap-8 relative z-10">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-red-100 dark:bg-red-500/20 border border-red-200 dark:border-red-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-red-600 dark:text-red-400 font-bold transition-colors duration-700">-5m</span>
+                            </div>
+                            <div>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_5_title">Perte des Rouges</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_5_desc">Disparition totale du spectre rouge.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-orange-100 dark:bg-orange-500/20 border border-orange-200 dark:border-orange-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-orange-600 dark:text-orange-400 font-bold transition-colors duration-700">-15m</span>
+                            </div>
+                            <div>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_15_title">Perte des Oranges/Jaunes</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_15_desc">Les teintes chaudes s'effacent complètement.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-14 h-14 shrink-0 rounded-full bg-blue-100 dark:bg-blue-500/20 border border-blue-200 dark:border-blue-500/40 flex items-center justify-center shadow-sm transition-colors duration-700">
+                                <span
+                                    class="text-blue-600 dark:text-blue-400 font-bold transition-colors duration-700">-30m+</span>
+                            </div>
+                            <div>
+                                <h4 class="text-slate-900 dark:text-white font-bold text-lg transition-colors duration-700"
+                                    data-i18n="depth_30_title">Domination Bleue</h4>
+                                <p class="text-slate-600 dark:text-gray-200 text-sm transition-colors duration-700"
+                                    data-i18n="depth_30_desc">Le paysage marin devient monochromatique.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-32 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="demo_subtitle">La Solution IA</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="demo_title">Le Studio DeepLens</h3>
+                <p class="text-slate-700 dark:text-gray-200 text-lg transition-colors duration-700"
+                    data-i18n="demo_desc">Démo en direct : Uploadez une image trouble et observez la magie générative.
+                </p>
+            </div>
+
+            <div
+                class="bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 dark:border-white/10 transition-all duration-700 relative overflow-hidden flex flex-col items-center">
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden flex-col items-center justify-center py-20 w-full transition-all">
+                    <div class="relative w-32 h-32 flex items-center justify-center mb-10">
+                        <div
+                            class="absolute inset-0 rounded-full border-[2px] border-slate-300 dark:border-gray-800 transition-colors duration-700">
+                        </div>
+                        <div
+                            class="absolute inset-0 rounded-full border-[3px] border-secondary dark:border-primary border-t-transparent border-l-transparent animate-spin transition-colors duration-700">
+                        </div>
+                        <div class="absolute inset-2 rounded-full border-[3px] border-blue-400 dark:border-secondary border-b-transparent border-r-transparent animate-spin transition-colors duration-700"
+                            style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary/20 dark:bg-primary/20 shadow-[0_0_20px_rgba(0,87,255,0.4)] dark:shadow-[0_0_30px_rgba(0,240,255,0.8)] animate-pulse transition-all duration-700">
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-wide transition-colors duration-700"
+                        data-i18n="loading_title">Inférence en cours...</h3>
+                    <p class="text-secondary dark:text-primary font-medium transition-colors duration-700"
+                        data-i18n="loading_desc">Les couches d'Attention décodent la couleur.</p>
+                </div>
+
+
+
+
+
+
+
+                <!-- Interactive Comparison Result -->
+                <div id="resultSection" class="flex flex-col w-full animate-fade-in-up mb-12">
+                    <div class="flex flex-col md:flex-row items-center justify-between mb-6 gap-4">
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-3 w-3 relative">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary dark:bg-primary opacity-75"></span>
+                                <span
+                                    class="relative inline-flex rounded-full h-3 w-3 bg-secondary dark:bg-primary transition-colors duration-700"></span>
+                            </span>
+                            <span
+                                class="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-700"
+                                data-i18n="result_title">Restauration Complète</span>
+                        </div>
+                        <div class="flex items-center gap-3 flex-wrap justify-end">
+                            <a id="downloadBtn" href="test1_result.png" download="image_restauree_deeplens.jpg"
+                                class="flex items-center gap-2 px-5 py-2 rounded-full bg-secondary text-white dark:bg-primary dark:text-deep font-bold transition-all duration-300 text-sm shadow-md hover:shadow-lg cursor-pointer hover:-translate-y-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                                <span data-i18n="btn_download">Télécharger</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- The Magic Slider -->
+                    <div class="compare-wrapper" id="compareWrapper">
+                        <img id="originalImg" class="compare-img" alt="Originale" />
+                        <div class="label-badge label-original" id="labelOrig" data-i18n="label_raw">Brute (Floue)</div>
+                        <img id="correctedImg" class="compare-overlay" alt="Corrigée" />
+                        <div class="label-badge label-ia" id="labelIa" data-i18n="label_ia">IA DeepLens</div>
+
+                        <div class="compare-handle" id="compareHandle"></div>
+                        <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider">
+                    </div>
+
+                    <p class="text-center text-secondary dark:text-primary font-medium text-sm mt-6 animate-bounce transition-colors duration-700"
+                        data-i18n="slider_hint">
+                        ← Glissez le curseur pour voir la comparaison →
+                    </p>
+                </div>
+
+                <!-- Dynamic Model Selector & Settings -->
+                <div
+                    class="w-full max-w-lg mx-auto mb-8 animate-fade-in-up bg-slate-100 dark:bg-[#062444] p-6 rounded-2xl border border-slate-200 dark:border-white/10 shadow-inner">
+                    <h4 class="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span data-i18n="settings_title">Paramètres d'Inférence</span>
+                    </h4>
+
+                    <div class="mb-4">
+                        <label for="modelSelect"
+                            class="block text-xs font-bold text-slate-500 dark:text-gray-400 mb-2 uppercase tracking-wider"
+                            data-i18n="model_label">
+                            Modèle Neuronal (Moteur ONNX Universel)
+                        </label>
+                        <select id="modelSelect"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-white dark:border-white/5 bg-white dark:bg-[#031930] text-slate-900 dark:text-white focus:outline-none focus:border-secondary dark:focus:border-primary transition-all font-medium cursor-pointer shadow-sm appearance-none"
+                            onchange="updateModelInfo()">
+                            <option value="v1" selected data-i18n="opt_v1">U-Net V1 (Standard - 890 images)</option>
+                            <option value="v2" data-i18n="opt_v2">U-Net V2 + PatchGAN (Couleurs pro - 890 images)
+                            </option>
+                            <option value="v3" data-i18n="opt_v3">U-Net V3 + PatchGAN (Massif - 12 325 images)</option>
+                        </select>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between mt-6 mb-2 pt-4 border-t border-slate-200 dark:border-white/10">
+                        <div>
+                            <span class="block text-sm font-bold text-slate-800 dark:text-white"
+                                data-i18n="onnx_title">Accélération ONNX</span>
+                            <span class="block text-xs text-slate-500 dark:text-gray-400" data-i18n="onnx_desc">Passe du
+                                moteur PyTorch à ONNX Runtime.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="onnxToggle" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-secondary dark:peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+
+
+
+                    <div
+                        class="flex items-center justify-between mt-6 mb-2 pt-4 border-t border-slate-200 dark:border-white/10">
+                        <div>
+                            <span class="block text-sm font-bold text-slate-800 dark:text-white"
+                                data-i18n="tiles_title">Traitement par Tuiles (HD)</span>
+                            <span class="block text-xs text-slate-500 dark:text-gray-400"
+                                data-i18n="tiles_desc">Préserve la résolution 4K (plus lent).</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="tuileToggle" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-secondary dark:peer-checked:bg-primary">
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Dynamic Dataset Info Box -->
+                    <div id="modelInfoBox"
+                        class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 rounded-xl text-sm transition-all duration-300 shadow-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 text-secondary dark:text-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong id="infoTitle" class="block text-slate-800 dark:text-blue-100 mb-1">Architecture
+                                    V2 (Sélectionnée)</strong>
+                                <p id="infoDesc" class="text-slate-600 dark:text-blue-200/80 leading-relaxed">
+                                    Entraînée sur le dataset UIEB (890 images) avec un réseau discriminateur (PatchGAN).
+                                    Permet un meilleur contraste et une restauration profonde des couleurs chaudes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload State (Always visible unless loading) -->
+                <div id="dropZone"
+                    class="w-full drop-zone border-2 border-dashed rounded-2xl flex flex-col items-center justify-center py-12 px-6 text-center group bg-white/50 dark:bg-black/20">
+                    <div
+                        class="w-20 h-20 rounded-full bg-blue-50 dark:bg-ocean/50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 shadow-md ring-1 ring-blue-100 dark:ring-primary/30">
+                        <svg class="w-8 h-8 text-secondary dark:text-primary transition-colors duration-700" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary dark:group-hover:text-primary transition-colors duration-700"
+                        data-i18n="upload_title">Déposez votre capture ici</h3>
+                    <p class="text-slate-600 dark:text-gray-200 text-sm text-center mb-6 transition-colors duration-700"
+                        data-i18n="upload_desc">Le réseau neuronal va extraire et corriger la turbidité.</p>
+                    <button
+                        class="px-8 py-3 rounded-full bg-gradient-to-r from-secondary to-blue-500 dark:from-primary dark:to-secondary font-bold text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-sm"
+                        data-i18n="upload_btn">
+                        Sélectionner un fichier
+                    </button>
+                    <input type="file" id="fileInput" class="hidden" accept="image/*">
+                </div>
+
+                <!-- Default Test Button (Removed as per user request to show directly) -->
+            </div>
+        </div>
+    </section>
+
+    <section id="applications"
+        class="py-24 px-6 relative z-10 transition-colors duration-700 bg-white/50 dark:bg-black/10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-4 transition-colors duration-700"
+                    data-i18n="app_subtitle">Cas d'usage</h2>
+                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-slate-900 dark:text-white transition-colors duration-700"
+                    data-i18n="app_title">Applications Industrielles & Scientifiques</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- AUV/ROV -->
+                <div
+                    class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-white/10 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                        data-i18n="app_auv_title">Véhicules Autonomes (AUV/ROV)</h4>
+                    <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                        data-i18n="app_auv_desc">Les drones sous-marins s'appuient sur des caméras pour la navigation.
+                        Notre modèle restaure la clarté de l'eau en temps réel pour améliorer la détection d'obstacles
+                        et le SLAM visuel.</p>
+                </div>
+                <!-- Offshore -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-white/10 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl"
+                    style="transition-delay: 100ms;">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                        data-i18n="app_offshore_title">Inspection Offshore</h4>
+                    <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                        data-i18n="app_offshore_desc">Inspection précise des infrastructures submergées (pipelines,
+                        éoliennes offshore). La restauration des couleurs permet d'identifier la corrosion et l'usure
+                        cachées par la turbidité.</p>
+                </div>
+                <!-- Marine Biology -->
+                <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-white/10 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl"
+                    style="transition-delay: 200ms;">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                        data-i18n="app_biology_title">Biologie Marine</h4>
+                    <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                        data-i18n="app_biology_desc">Océanographie et écologie : cartographie exacte des récifs
+                        coralliens et comptage des espèces. Le modèle restitue les vraies teintes vitales pour évaluer
+                        le blanchiment des coraux.</p>
+                </div>
+            </div>
+
+            <!-- Edge AI Optimization Row -->
+            <div class="mt-16">
+                <div class="text-center mb-10 reveal">
+                    <h2 class="text-secondary dark:text-primary text-sm font-bold uppercase tracking-widest mb-3 transition-colors duration-700"
+                        data-i18n="edge_subtitle">Optimisation Edge AI</h2>
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white transition-colors duration-700"
+                        data-i18n="edge_title">Comment on accélère le modèle</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- ONNX Card -->
+                    <div
+                        class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-white/10 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18">
+                                </path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                            data-i18n="edge_onnx_title">Moteur ONNX</h4>
+                        <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                            data-i18n="edge_onnx_desc">Le modèle PyTorch est converti en ONNX Runtime (C++). Ce
+                            changement de moteur seul multiplie la vitesse d'inférence par 2 à 4x sur CPU sans aucune
+                            perte de qualité.</p>
+                    </div>
+                    <!-- Dynamic Axes Card -->
+                    <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-white/10 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl"
+                        style="transition-delay: 100ms;">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                            data-i18n="edge_axes_title">Tenseurs à Axes Dynamiques</h4>
+                        <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                            data-i18n="edge_axes_desc">Contrairement aux modèles IA classiques bridés à une résolution fixe (ex: 512x512), le réseau est exporté avec des axes dynamiques. Il s'adapte mathématiquement à n'importe quelle dimension d'image envoyée par l'utilisateur.</p>
+                    </div>
+                    <!-- Cosine Blending Card -->
+                    <div class="p-8 rounded-3xl bg-white dark:bg-slate-800 shadow-xl border border-secondary/30 dark:border-primary/30 reveal transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl"
+                        style="transition-delay: 200ms;">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-primary/10 flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-secondary dark:text-primary" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-700"
+                            data-i18n="edge_tuiles_title">Algorithme de Fondu Cosinusoïdal</h4>
+                        <p class="text-slate-600 dark:text-slate-400 transition-colors duration-700"
+                            data-i18n="edge_tuiles_desc">Pour traiter la 4K sans saturer la RAM, l'image est découpée en tuiles. Une fenêtre de fusion en cosinus (Cosine Blending) est appliquée sur les chevauchements pour éliminer totalement les artefacts de grille (Grid Artifacts).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="timeline"
         class="py-24 px-6 relative z-10 transition-colors duration-700 bg-slate-50/50 dark:bg-black/20">
         <div class="max-w-4xl mx-auto">
@@ -933,7 +1105,6 @@
         </div>
     </section>
 
-    <!-- Tech Stack & GitHub Section -->
     <section id="tech-stack" class="py-24 px-6 relative z-10 transition-colors duration-700">
         <div
             class="max-w-5xl mx-auto bg-white/80 dark:bg-[#031930] backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20 dark:border-white/10 reveal flex flex-col md:flex-row items-center justify-between gap-12">
@@ -958,7 +1129,7 @@
                 </div>
             </div>
             <div class="flex-shrink-0">
-                <a href="#" target="_blank"
+                <a href="https://github.com/MDjodallah/ouc-underwater-image-restoration" target="_blank"
                     class="group relative inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-deep font-bold rounded-full text-lg overflow-hidden transition-transform hover:scale-105 shadow-xl cursor-pointer">
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-slate-700 to-slate-900 dark:from-gray-200 dark:to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -990,6 +1161,8 @@
             data-i18n="footer_title">Conçu pour l'exploration sous-marine.</p>
         <p class="text-slate-900 dark:text-gray-100 text-sm mt-2 transition-colors duration-700"
             data-i18n="footer_desc">Modèle Génératif Profond • Backend FastAPI • Interface Interactive</p>
+        <p class="text-slate-700 dark:text-gray-300 text-sm mt-4 font-bold transition-colors duration-700">Créé par
+            Moutassim DJODALLAH</p>
     </footer>
 
     <!-- Logic -->
@@ -1007,14 +1180,14 @@
         const translations = {
             fr: {
                 nav_mission: "Le Défi Marin",
-                nav_demo: "Démo Interactive",
-                nav_backstage: "Les Coulisses",
+                nav_demo: "Studio DeepLens",
+                nav_backstage: "Histoire",
                 hero_badge: "Recherche & Restauration IA",
                 hero_title: "Révélez <br /> <span class='text-gradient'>L'Invisible.</span>",
                 hero_desc: "Stage de 4ème année (Projet de Recherche) - Ocean University of China (OUC)<br /><strong>Réalisé par :</strong> Moutassim Djodalah annour | <strong>Supervisé par :</strong> Prof. Cao Jingchao",
                 hero_btn: "Traiter une image",
                 hero_scroll: "Découvrir",
-                mission_subtitle: "Le Problème Physique",
+                mission_subtitle: "Le Défi Physique",
                 mission_title: "L'Océan vole nos couleurs.",
                 mission_p1: "Sous l'eau, la lumière ne se comporte pas comme dans l'air. L'eau absorbe les couleurs : le rouge disparaît en premier (dès 5 mètres de profondeur), ce qui donne cet aspect verdâtre/bleuté. De plus, les particules en suspension créent un \"voile\" (scattering) qui rend l'image floue.",
                 mission_p2: "Pour les plongeurs et les biologistes, cette distorsion empêche l'analyse correcte de la biodiversité (comme les coraux). <strong>DeepLens</strong> utilise une architecture U-Net GAN pour inverser cette loi de la physique numériquement.",
@@ -1029,13 +1202,14 @@
                 demo_desc: "Démo en direct : Uploadez une image trouble et observez la magie générative.",
                 tiles_title: "Traitement par Tuiles (HD)",
                 tiles_desc: "Préserve la résolution 4K (plus lent).",
+                fp16_toggle_desc: "RAM ÷2 & vitesse ×2 (demi-précision)",
                 test_default_btn: "Tester avec l'image par défaut (test1.jpeg)",
                 settings_title: "Paramètres d'Inférence",
                 model_label: "Modèle Neuronal (Moteur ONNX Universel)",
                 opt_v1: "U-Net V1 (Standard - 890 images)",
                 opt_v2: "U-Net V2 + PatchGAN (Couleurs pro - 890 images)",
                 opt_v3: "U-Net V3 + PatchGAN (Massif - 12 325 images)",
-                onnx_title: "Accélération ONNX ⚡",
+                onnx_title: "Accélération ONNX",
                 onnx_desc: "Passe du moteur PyTorch à ONNX Runtime.",
                 or_upload: "Ou uploadez la vôtre",
                 upload_title: "Déposez votre capture ici",
@@ -1072,25 +1246,64 @@
                 td_v2_dataset: "UIEB (890 images)",
                 td_v3_model: "U-Net V3 + PatchGAN (Massif)",
                 td_v3_dataset: "UIEB + EUVP (12 325 images)",
-                td_pending: "[Évaluation en cours]",
-                table_note: "<strong>Note :</strong> Le score SSIM de 0.93 du modèle V2 est déjà considéré comme excellent dans la littérature. Le passage au GAN sur 12 000 images (V3) a fait décoller le score PSNR global (13.77 dB vs 6.24 dB pour la V1).<br><br><span class='text-secondary dark:text-primary font-bold'>Pourquoi la V2 paraît parfois 'mieux' à l'œil nu ?</span><br>La V2 s'est sur-spécialisée sur des eaux claires (dataset UIEB), ce qui donne des couleurs très vibrantes sur des images 'faciles'. La V3, entraînée sur des milliers d'images très dégradées (EUVP), est devenue 'tout-terrain'. Elle est mathématiquement plus exacte et robuste (meilleur PSNR), mais lisse ses corrections pour éviter les artefacts sur les images complexes.",
+                td_pending: "0.7255",
+                table_note: "<strong>Note :</strong> La V1 (modèle de base strict) obtient un meilleur score mathématique que la V2 car elle reconstruit pixel par pixel sans se soucier du contexte global. La V2 utilise l'Attention Spatiale et le suréchantillonnage Bilinéaire, ce qui donne souvent des couleurs beaucoup plus douces et naturelles à l'œil (pas d'effet damier), mais crée un léger 'flou' qui massacre mathématiquement les scores PSNR/SSIM.<br><br><span class='text-secondary dark:text-primary font-bold'>La puissance du GAN (V3)</span><br>Le passage au GAN sur 12 000 images (V3) force le générateur à retrouver les hautes fréquences perdues (les détails fins et la texture) sans sacrifier l'aspect naturel, propulsant les scores (12.16 dB / 0.7255 SSIM) et créant un modèle tout-terrain.",
                 td_raw: "Image Floue d'origine",
                 td_v1: "Baseline (U-Net V1)",
                 td_v2: "U-Net V2 (Attention)",
                 td_v3: "GAN (Modèle Final)",
                 footer_title: "Conçu pour l'exploration sous-marine.",
-                footer_desc: "Modèle Génératif Profond • Backend FastAPI • Interface Interactive"
+                footer_desc: "Modèle Génératif Profond • Backend FastAPI • Interface Interactive",
+                nav_applications: "Applications",
+                app_subtitle: "Cas d'usage",
+                app_title: "Applications Industrielles & Scientifiques",
+                app_auv_title: "Véhicules Autonomes (AUV/ROV)",
+                app_auv_desc: "Les drones sous-marins s'appuient sur des caméras pour la navigation. Notre modèle restaure la clarté de l'eau en temps réel pour améliorer la détection d'obstacles et le SLAM visuel.",
+                app_offshore_title: "Inspection Offshore",
+                app_offshore_desc: "Inspection précise des infrastructures submergées (pipelines, éoliennes offshore). La restauration des couleurs permet d'identifier la corrosion et l'usure cachées par la turbidité.",
+                app_biology_title: "Biologie Marine",
+                app_biology_desc: "Océanographie et écologie : cartographie exacte des récifs coralliens et comptage des espèces. Le modèle restitue les vraies teintes vitales pour évaluer le blanchiment des coraux.",
+                edge_subtitle: "Optimisation Edge AI",
+                edge_title: "Comment on accélère le modèle",
+                edge_onnx_title: "Moteur ONNX",
+                edge_onnx_desc: "Le modèle PyTorch est converti en ONNX Runtime (C++). Ce changement de moteur seul multiplie la vitesse d'inférence par 2 à 4x sur CPU sans aucune perte de qualité.",
+                edge_axes_title: "Tenseurs à Axes Dynamiques",
+                edge_axes_desc: "Contrairement aux modèles IA classiques bridés à une résolution fixe (ex: 512x512), le réseau est exporté avec des axes dynamiques. Il s'adapte mathématiquement à n'importe quelle dimension d'image.",
+                edge_tuiles_title: "Algorithme de Fondu Cosinusoïdal",
+                edge_tuiles_desc: "Pour traiter la 4K sans saturer la RAM, l'image est découpée en tuiles. Une fenêtre de fusion en cosinus (Cosine Blending) est appliquée sur les chevauchements pour éliminer totalement les artefacts de grille (Grid Artifacts).",
+                nav_timeline: "Roadmap",
+                nav_stack: "Tech Stack",
+                timeline_subtitle: "Parcours & Méthodologie",
+                timeline_title: "Project Roadmap",
+                time_m1: "Mi-Mai à Juin",
+                title_m1: "État de l'art & Certification Deep Learning",
+                desc_m1: "Plongée dans la littérature de restauration d'images sous-marines et validation des compétences théoriques via une certification spécialisée.",
+                time_m2: "Début Juillet",
+                title_m2: "Baseline U-Net & Dataset UIEB",
+                desc_m2: "Développement de l'architecture U-Net classique (PyTorch). Traitement et préparation du premier dataset de référence (UIEB - 890 images).",
+                time_m3: "Fin Juillet",
+                title_m3: "Optimisation & Architecture PatchGAN",
+                desc_m3: "Résolution de l'effet damier (Interpolation Bilinéaire) et intégration de l'Attention Spatiale. Construction du réseau antagoniste pour des textures ultra-réalistes.",
+                time_m4: "Début Août",
+                title_m4: "Entraînement Massif (EUVP)",
+                desc_m4: "Augmentation de données, entraînement sur 12 000+ paires d'images pour la robustesse colorimétrique.",
+                time_m5: "Mi-Août",
+                title_m5: "Déploiement & Rapport",
+                desc_m5: "Déploiement via backend FastAPI, tests de l'interface et rédaction du rapport final de stage.",
+                stack_title: "Tech Stack & Code Source",
+                stack_desc: "L'architecture du modèle PyTorch, les scripts de traitement de données et l'API FastAPI sont disponibles pour consultation.",
+                btn_github: "Voir sur GitHub"
             },
             en: {
                 nav_mission: "The Ocean Challenge",
-                nav_demo: "Interactive Demo",
-                nav_backstage: "Backstage",
+                nav_demo: "DeepLens Studio",
+                nav_backstage: "History",
                 hero_badge: "AI Research & Restoration",
                 hero_title: "Reveal <br /> <span class='text-gradient'>The Invisible.</span>",
                 hero_desc: "4th Year Internship (Research Project) - Ocean University of China (OUC)<br /><strong>By:</strong> Moutassim Djodalah annour | <strong>Supervised by:</strong> Prof. Cao Jingchao",
                 hero_btn: "Process an image",
                 hero_scroll: "Discover",
-                mission_subtitle: "The Physical Problem",
+                mission_subtitle: "The Physical Challenge",
                 mission_title: "The Ocean steals our colors.",
                 mission_p1: "Underwater, light behaves differently. Water absorbs colors: red disappears first (at 5 meters depth), leaving a greenish/bluish hue. Also, particles create a 'scattering' veil that blurs the image.",
                 mission_p2: "For divers and biologists, this distortion prevents accurate analysis of biodiversity (like corals). <strong>DeepLens</strong> uses a U-Net GAN architecture to digitally reverse this law of physics.",
@@ -1105,13 +1318,14 @@
                 demo_desc: "Live Demo: Upload a murky image and witness the generative magic.",
                 tiles_title: "Tile Processing (HD)",
                 tiles_desc: "Preserves 4K resolution (slower).",
+                fp16_toggle_desc: "RAM ÷2 & speed ×2 (half-precision)",
                 test_default_btn: "Test with default image (test1.jpeg)",
                 settings_title: "Inference Settings",
                 model_label: "Neural Model (Universal ONNX Engine)",
                 opt_v1: "U-Net V1 (Standard - 890 images)",
                 opt_v2: "U-Net V2 + PatchGAN (Pro Colors - 890 images)",
                 opt_v3: "U-Net V3 + PatchGAN (Massive - 12,325 images)",
-                onnx_title: "ONNX Acceleration ⚡",
+                onnx_title: "ONNX Acceleration",
                 onnx_desc: "Switches from PyTorch engine to ONNX Runtime.",
                 or_upload: "Or upload your own",
                 upload_title: "Drop your capture here",
@@ -1148,14 +1362,31 @@
                 td_v2_dataset: "UIEB (890 images)",
                 td_v3_model: "U-Net V3 + PatchGAN (Massive)",
                 td_v3_dataset: "UIEB + EUVP (12 325 images)",
-                td_pending: "[Awaiting Training]",
-                table_note: "<strong>Note:</strong> The SSIM score of 0.93 for the V2 model is already considered excellent in literature. Moving to GAN on 12,000 images (V3) skyrocketed the global PSNR score (13.77 dB vs 6.24 dB for V1).<br><br><span class='text-secondary dark:text-primary font-bold'>Why does V2 sometimes look 'better' to the naked eye?</span><br>V2 over-specialized on clear waters (UIEB dataset), yielding highly vibrant colors on 'easy' images. V3, trained on thousands of highly degraded images (EUVP), became an 'all-terrain' model. It is mathematically more accurate and robust (higher PSNR), but smooths its corrections to avoid artifacts on complex images.",
+                td_pending: "0.7255",
+                table_note: "<strong>Note:</strong> V1 (strict baseline) scores mathematically higher than V2 because it reconstructs pixel-by-pixel without context. V2 uses Spatial Attention and Bilinear upsampling, often resulting in much smoother and natural colors to the human eye (no checkerboard effect), but introduces a slight 'blur' that mathematically massacres PSNR/SSIM scores.<br><br><span class='text-secondary dark:text-primary font-bold'>The Power of GAN (V3)</span><br>Moving to GAN on 12,000 images (V3) forces the generator to recover lost high frequencies (fine details and textures) without sacrificing the natural look, skyrocketing the scores (12.16 dB / 0.7255 SSIM) and creating an all-terrain model.",
                 td_raw: "Original Blurry Image",
                 td_v1: "Baseline (U-Net V1)",
                 td_v2: "U-Net V2 (Attention)",
                 td_v3: "GAN (Final Model)",
                 footer_title: "Designed for underwater exploration.",
                 footer_desc: "Deep Generative Model • FastAPI Backend • Interactive Interface",
+                nav_applications: "Applications",
+                app_subtitle: "Use Cases",
+                app_title: "Industrial & Scientific Applications",
+                app_auv_title: "Autonomous Vehicles (AUV/ROV)",
+                app_auv_desc: "Underwater drones rely on cameras for navigation. Our model restores water clarity in real time to improve obstacle detection and visual SLAM algorithms.",
+                app_offshore_title: "Offshore Inspection",
+                app_offshore_desc: "Accurate inspection of submerged infrastructure (pipelines, offshore wind farms). Color restoration identifies corrosion and wear hidden by water turbidity.",
+                app_biology_title: "Marine Biology",
+                app_biology_desc: "Oceanography and ecology: accurate mapping of coral reefs and species counting. The model restores true vital hues to assess coral bleaching.",
+                edge_subtitle: "Edge AI Optimization",
+                edge_title: "How We Accelerate the Model",
+                edge_onnx_title: "ONNX Engine",
+                edge_onnx_desc: "The PyTorch model is converted to ONNX Runtime (C++). This engine swap alone multiplies inference speed by 2 to 4x on CPU without any quality loss.",
+                edge_axes_title: "Dynamic Tensor Axes",
+                edge_axes_desc: "Unlike standard AI models bottlenecked by fixed resolutions (e.g., 512x512), the network is exported with dynamic axes. It mathematically adapts to any user-provided image dimension.",
+                edge_tuiles_title: "Cosine Blending Algorithm",
+                edge_tuiles_desc: "To process 4K images without overflowing RAM, the image is tiled. A Cosine Blending window is applied on overlapping regions to completely eliminate Grid Artifacts.",
                 nav_timeline: "Roadmap",
                 nav_stack: "Tech Stack",
                 timeline_subtitle: "Journey & Methodology",
@@ -1314,10 +1545,11 @@
             formData.append('model_version', document.getElementById('modelSelect').value);
             formData.append('use_tiles', document.getElementById('tuileToggle').checked ? 'true' : 'false');
             formData.append('use_onnx', document.getElementById('onnxToggle').checked ? 'true' : 'false');
-
+            
             try {
                 // Point to local FastAPI server
-                const apiUrl = 'http://127.0.0.1:8000/predict';
+                // const apiUrl = 'http://127.0.0.1:8000/predict'; // Mode local
+                const apiUrl = '/predict'; // URL relative pour la production (quand hébergé par FastAPI)
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     body: formData
@@ -1349,18 +1581,24 @@
 
             } catch (error) {
                 console.error(error);
-                alert(currentLang === 'fr' ? "Erreur de connexion à l'IA. Vérifiez que le serveur FastAPI (uvicorn) tourne sur votre Mac." : "AI connection error. Please ensure the FastAPI (uvicorn) server is running on your Mac.");
+                alert(currentLang === 'fr'
+                    ? "Erreur de connexion à l'IA. Si vous utilisez PyTorch natif (sans ONNX), il est possible que le serveur Cloud ait saturé sa mémoire RAM (OOM Kill) et ait redémarré. L'accélération ONNX est recommandée."
+                    : "AI connection error. If using native PyTorch (without ONNX), the Cloud server might have run out of RAM (OOM Kill) and restarted. ONNX acceleration is recommended.");
 
                 // Mettre l'image corrige = image originale par défaut au lieu de la tortue
                 correctedImg.src = originalImg.src;
                 downloadBtn.href = originalImg.src;
 
-                // En cas d'erreur, on remet le dropzone au moins
+                // En cas d'erreur, on montre le résultat ET on réaffiche le dropZone
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
 
                 resultSection.classList.remove('hidden');
                 resultSection.classList.add('flex');
+
+                // Réafficher la zone d'upload
+                dropZone.classList.remove('hidden');
+                dropZone.classList.add('flex');
             }
         }
 
@@ -1368,7 +1606,7 @@
             const select = document.getElementById('modelSelect');
             const title = document.getElementById('infoTitle');
             const desc = document.getElementById('infoDesc');
-            
+
             if (select.value === 'v1') {
                 title.innerText = currentLang === 'fr' ? 'Architecture V1 (Sélectionnée)' : 'Architecture V1 (Selected)';
                 desc.innerText = currentLang === 'fr' ? "Modèle U-Net classique. Entraîné sur le dataset UIEB (890 images). Offre une restauration de base en retirant le voile bleu/vert, sans réseau antagoniste." : "Classic U-Net model. Trained on the UIEB dataset (890 images). Provides basic restoration by removing the blue/green veil, without an adversarial network.";
@@ -1408,7 +1646,7 @@
         document.getElementById('modelSelect').addEventListener('change', reRunInference);
         document.getElementById('onnxToggle').addEventListener('change', reRunInference);
         document.getElementById('tuileToggle').addEventListener('change', reRunInference);
-        
+
         // Trigger default inference on page load
         setTimeout(reRunInference, 500);
 

@@ -1,12 +1,25 @@
-version: '3.8'
-
 services:
   api:
     build: .
-    ports:
-      - "80:8000"
+    expose:
+      - "8000"
     volumes:
       - ./:/app
     environment:
       - ENVIRONMENT=production
     restart: always
+
+  caddy:
+    image: caddy:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    command: caddy reverse-proxy --from underwater-ouc.duckdns.org --to api:8000
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

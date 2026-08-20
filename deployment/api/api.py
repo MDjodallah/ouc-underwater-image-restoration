@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 import io
 import math
@@ -10,7 +11,7 @@ import torch
 import onnxruntime as ort
 import os
 
-from core.config import ONNX_WEIGHTS_PATH
+from core.config import ONNX_WEIGHTS_PATH, ONNX_FP16_WEIGHTS_PATH
 from core.model import Unet
 
 app = FastAPI(title="OUC Underwater API")
@@ -30,14 +31,20 @@ loaded_pt_models = {}
 
 ONNX_PATHS = {
     "v1": "weights/unet_V1.onnx",
+    "v1_fast": "weights/unet_v1_fp16.onnx",
     "v2": "weights/unet_gan_v2.onnx",
-    "v3": "weights/generator_final.onnx"
+    "v2_fast": "weights/unet_v2_fp16.onnx",
+    "v3": "weights/generator_final.onnx",
+    "v3_fast": ONNX_FP16_WEIGHTS_PATH
 }
 
 PT_PATHS = {
     "v1": "weights/unet_V1.pth",
+    "v1_fast": "weights/unet_V1.pth",
     "v2": "weights/unet_gan_V2.pth",
-    "v3": "weights/generator_final.pth"
+    "v2_fast": "weights/unet_gan_V2.pth",
+    "v3": "weights/generator_final.pth",
+    "v3_fast": "weights/generator_final.pth"
 }
 
 def get_onnx_session(version: str):
@@ -82,6 +89,15 @@ def get_pt_model(version: str):
 def get_multiple_of_16(val):
     return int(math.ceil(val / 16.0)) * 16
 
+def get_weight_mask(h, w):
+    y = torch.linspace(-1, 1, h)
+    x = torch.linspace(-1, 1, w)
+    weight_y = torch.cos(y * math.pi / 2.0)
+    weight_x = torch.cos(x * math.pi / 2.0)
+    weight_2d = torch.outer(weight_y, weight_x)
+    # Add small epsilon to avoid division by zero at strict boundaries
+    return weight_2d.unsqueeze(0).unsqueeze(0) + 1e-5
+
 def process_by_patches_onnx(img_tensor, ort_session, input_name, patch_size=512, overlap=64):
     _, _, H, W = img_tensor.shape
     stride = patch_size - overlap
@@ -97,14 +113,17 @@ def process_by_patches_onnx(img_tensor, ort_session, input_name, patch_size=512,
             x0 = max(0, x1 - patch_size)
             
             patch = img_tensor[:, :, y0:y1, x0:x1]
+            weight = get_weight_mask(y1-y0, x1-x0)
+            
             patch_np = patch.numpy()
             out_patch_np = ort_session.run(None, {input_name: patch_np})[0]
             out_patch = torch.from_numpy(out_patch_np)
             
-            out_tensor[:, :, y0:y1, x0:x1] += out_patch
-            count_tensor[:, :, y0:y1, x0:x1] += 1.0
+            out_tensor[:, :, y0:y1, x0:x1] += out_patch * weight
+            count_tensor[:, :, y0:y1, x0:x1] += weight
             
     return out_tensor / count_tensor
+
 
 def process_by_patches_pt(img_tensor, model, patch_size=512, overlap=64):
     _, _, H, W = img_tensor.shape
@@ -122,15 +141,17 @@ def process_by_patches_pt(img_tensor, model, patch_size=512, overlap=64):
                 x0 = max(0, x1 - patch_size)
                 
                 patch = img_tensor[:, :, y0:y1, x0:x1]
+                weight = get_weight_mask(y1-y0, x1-x0).to(patch.device)
+                
                 out_patch = model(patch)
                 
-                out_tensor[:, :, y0:y1, x0:x1] += out_patch
-                count_tensor[:, :, y0:y1, x0:x1] += 1.0
+                out_tensor[:, :, y0:y1, x0:x1] += out_patch * weight
+                count_tensor[:, :, y0:y1, x0:x1] += weight
             
     return out_tensor / count_tensor
 
-@app.get("/")
-async def ping():
+@app.get("/health")
+def read_root():
     return {"status": "online", "message": "DeepLens Hybrid API is running!"}
 
 @app.post("/predict")
@@ -159,7 +180,7 @@ async def predict(
             return Response(content=b"PyTorch Model not loaded", status_code=500)
     
     # 2. Configuration des Moyennes et Ecarts-types selon la version du modèle
-    if model_version == "v3":
+    if model_version in ["v3", "v3_fast"]:
         current_mean = [0.237, 0.476, 0.464]
         current_std = [0.197, 0.239, 0.239]
     else:
@@ -194,6 +215,9 @@ async def predict(
     
     img_batch = np.expand_dims(img_array, axis=0) # [1, 3, H, W]
     
+    if model_version.endswith('_fast'):
+        img_batch = img_batch.astype(np.float16)
+        
     # 5. Lancement de la prédiction (Inférence)
     if use_onnx:
         if use_tiles:
@@ -213,6 +237,7 @@ async def predict(
         prediction = out_tensor.numpy()
     
     # 6. Post-traitement et Envoi de l'image
+    prediction = prediction.astype(np.float32)
     prediction = (prediction * std_np) + mean_np
     prediction = np.clip(prediction, 0.0, 1.0)
     
@@ -239,3 +264,6 @@ async def predict(
     gc.collect()
     
     return Response(content=buf.getvalue(), media_type="image/png")
+
+# Serve the static frontend (this MUST be at the end so it doesn't override /predict)
+app.mount("/", StaticFiles(directory="deployment/frontend", html=True), name="frontend")
