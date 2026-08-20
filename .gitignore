@@ -16,17 +16,22 @@ ref/
 *.pth
 *.pt
 *.onnx
+*.onnx.data
 
-# Exception : On a besoin du modèle final (34 Mo) pour le déploiement sur Render !
-!generator_final.pth
-!generator.onnx
+# Exception : Final model weights needed for deployment
+!weights/generator_final.pth
+!weights/generator_final.onnx
+!weights/generator_final.onnx.data
+!weights/unet_V1.onnx
+!weights/unet_V1.onnx.data
+!weights/unet_gan_v2.onnx
+!weights/unet_gan_V2.onnx.data
 
-# Configuration (Keep personal paths out of git)
-# (config.py is now tracked in core/config.py)
-# Mac OS
+# Configuration
 .DS_Store
 
 # Test and temp files
 test/
 calcul_
 config.json
+results/
