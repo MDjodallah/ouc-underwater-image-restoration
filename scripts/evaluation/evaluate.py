@@ -30,13 +30,13 @@ def tensor_to_numpy(tensor):
 def evaluate_model():
     print(f"Début de l'évaluation des métriques (PSNR/SSIM) sur {DEVICE}...")
     
-    # 1. Chargement du modèle V2
+    # 1. Chargement du modèle V1
     model = Unet().to(DEVICE)
     try:
-        model.load_state_dict(torch.load("generator_final.pth", map_location=DEVICE, weights_only=True))
-        print("Poids du modèle chargés avec succès.")
+        model.load_state_dict(torch.load("weights/unet_V1.pth", map_location=DEVICE, weights_only=True))
+        print("Poids du modèle V1 chargés avec succès.")
     except:
-        print("Erreur : Fichier de poids generator_final.pth introuvable.")
+        print("Erreur : Fichier de poids weights/unet_V1.pth introuvable.")
         return
         
     model.eval() # Mode évaluation

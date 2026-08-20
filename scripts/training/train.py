@@ -14,9 +14,14 @@ from core.config import (CHEMIN_RAW, CHEMIN_REF, BATCH_SIZE,
                     LEARNING_RATE, EPOCHS, VAL_SPLIT, DEVICE, MEAN, STD)
 
 def train():
-
+    # --- MODIFICATION V1 : Forcer le chemin vers les 890 images ---
+    CHEMIN_RAW_V1 = "uieb_data/raw"
+    CHEMIN_REF_V1 = "uieb_data/ref"
+    
+    # 1. Dataset Initialization (On utilise les nouveaux chemins)
+    full_dataset = Underwaterdataset(CHEMIN_RAW_V1, CHEMIN_REF_V1)
     # 1. Dataset Initialization
-    full_dataset = Underwaterdataset(CHEMIN_RAW, CHEMIN_REF)
+    #full_dataset = Underwaterdataset(CHEMIN_RAW, CHEMIN_REF)
     
     # --- DYNAMIC TRAIN/VAL SPLIT ---
     total_size = len(full_dataset)
